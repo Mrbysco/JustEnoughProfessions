@@ -40,6 +40,7 @@ public class ProfessionPlugin implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(Items.EMERALD), ProfessionCategory.UID);
+        registration.addRecipeCatalyst(new ItemStack(Items.VILLAGER_SPAWN_EGG), ProfessionCategory.UID);
     }
 
     @Override

@@ -13,7 +13,7 @@ description='''
 Adds info about professions to JEI
 '''
 
-[[dependencies.jeiprofessions]]
+[[dependencies.justenoughprofessions]]
 modId="jei"
 mandatory=true
 versionRange="[7.5.0,)"
