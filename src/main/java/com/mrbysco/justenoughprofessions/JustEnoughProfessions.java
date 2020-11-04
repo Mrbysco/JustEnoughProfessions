@@ -8,12 +8,12 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(JeiProfessions.MOD_ID)
-public class JeiProfessions {
+@Mod(JustEnoughProfessions.MOD_ID)
+public class JustEnoughProfessions {
     public static final String MOD_ID = "justenoughprofessions";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
-    public JeiProfessions() {
+    public JustEnoughProfessions() {
         //Make sure the mod being absent on the other network side does not cause the client to display the server as incompatible
         ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
     }

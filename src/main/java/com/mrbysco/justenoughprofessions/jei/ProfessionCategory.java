@@ -1,7 +1,7 @@
 package com.mrbysco.justenoughprofessions.jei;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mrbysco.justenoughprofessions.JeiProfessions;
+import com.mrbysco.justenoughprofessions.JustEnoughProfessions;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
@@ -17,7 +17,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 
 public class ProfessionCategory<T extends IRecipeCategoryExtension> implements IRecipeCategory<ProfessionWrapper> {
-    public static final ResourceLocation UID = new ResourceLocation(JeiProfessions.MOD_ID, "professions");
+    public static final ResourceLocation UID = new ResourceLocation(JustEnoughProfessions.MOD_ID, "professions");
 
     protected static final int X_FIRST_ITEM = 75;
     protected static final int Y_ITEM_DISTANCE = 22;
@@ -26,10 +26,10 @@ public class ProfessionCategory<T extends IRecipeCategoryExtension> implements I
     private final IDrawableStatic slotDrawable;
 
     public ProfessionCategory(IGuiHelper guiHelper) {
-        ResourceLocation location = new ResourceLocation(JeiProfessions.MOD_ID, "textures/gui/professions.png");
+        ResourceLocation location = new ResourceLocation(JustEnoughProfessions.MOD_ID, "textures/gui/professions.png");
         this.background = guiHelper.drawableBuilder(location, 0, 0, 72, 62).addPadding(1, 0, 0, 50).build();
 
-        ResourceLocation iconLocation = new ResourceLocation(JeiProfessions.MOD_ID, "textures/gui/profession_icon.png");
+        ResourceLocation iconLocation = new ResourceLocation(JustEnoughProfessions.MOD_ID, "textures/gui/profession_icon.png");
         this.icon = guiHelper.createDrawable(iconLocation, 0, 0, 16, 16);
 
         this.slotDrawable = guiHelper.getSlotDrawable();

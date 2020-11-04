@@ -25,7 +25,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 @JeiPlugin
 public class ProfessionPlugin implements IModPlugin {
-    private static final ResourceLocation UID = new ResourceLocation(JeiProfessions.MOD_ID, "jei_plugin");
+    private static final ResourceLocation UID = new ResourceLocation(JustEnoughProfessions.MOD_ID, "jei_plugin");
 
     @Override
     public ResourceLocation getPluginUid() {
