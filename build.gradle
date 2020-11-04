@@ -12,7 +12,7 @@ apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 version = "${version}"
-group = 'com.mrbysco.jeiprofessions' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = 'com.mrbysco.justenoughprofessions' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "JustEnoughProfessions-${mc_version}"
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
@@ -34,7 +34,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                jeiprofessions {
+                justenoughprofessions {
                     source sourceSets.main
                 }
             }
@@ -49,7 +49,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                jeiprofessions {
+                justenoughprofessions {
                     source sourceSets.main
                 }
             }
@@ -63,10 +63,10 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'jeiprofessions', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'justenoughprofessions', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 		
             mods {
-                jeiprofessions {
+                justenoughprofessions {
                     source sourceSets.main
                 }
             }
@@ -98,7 +98,7 @@ dependencies {
 jar {
     manifest {
         attributes([
-            "Specification-Title": "jeiprofessions",
+            "Specification-Title": "justenoughprofessions",
             "Specification-Vendor": "Mrbysco",
             "Specification-Version": "1", // We are version 1 of ourselves
             "Implementation-Title": project.name,
