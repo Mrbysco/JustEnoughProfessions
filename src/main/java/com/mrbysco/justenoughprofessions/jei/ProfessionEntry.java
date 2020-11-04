@@ -52,18 +52,13 @@ public class ProfessionEntry {
         CompoundNBT nbt = new CompoundNBT();
         nbt.putString("id", ForgeRegistries.ENTITIES.getKey(EntityType.VILLAGER).toString());
         Minecraft mc = Minecraft.getInstance();
-        World world;
-        if(mc.isSingleplayer()) {
-            world = mc.getIntegratedServer().getWorlds().iterator().next();
-        } else {
-            world = mc.world;
-        }
+        World world = mc.isSingleplayer() ? mc.getIntegratedServer().getWorlds().iterator().next() : mc.world;
         if(world != null) {
             VillagerEntity villagerEntity = (VillagerEntity)EntityType.loadEntityAndExecute(nbt, world, Function.identity());
             if(villagerEntity != null) {
                 villagerEntity.setVillagerData(villagerEntity.getVillagerData().withProfession(this.profession));
+                return villagerEntity;
             }
-            return villagerEntity;
         }
         return null;
     }
