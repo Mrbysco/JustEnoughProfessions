@@ -10,6 +10,7 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.item.ItemStack;
@@ -48,11 +49,18 @@ public class ProfessionPlugin implements IModPlugin {
         List<ProfessionEntry> entries = new LinkedList<>();
         for(VillagerProfession profession : ForgeRegistries.PROFESSIONS) {
             List<ItemStack> stacks = new LinkedList<>();
+            List<ResourceLocation> knownItems = new LinkedList<>();
             PointOfInterestType poiType = profession.getPointOfInterest();
+
             for(BlockState state : poiType.blockStates) {
-                ItemStack stack = new ItemStack(state.getBlock());
-                if(!stacks.contains(stack)) {
-                    stacks.add(stack);
+                Block block = ForgeRegistries.BLOCKS.getValue(state.getBlock().getRegistryName());
+                if(block != null) {
+                    ItemStack stack = new ItemStack(block);
+                    ResourceLocation location = stack.getItem().getRegistryName();
+                    if(!stack.isEmpty() && !knownItems.contains(location)) {
+                        stacks.add(stack);
+                        knownItems.add(stack.getItem().getRegistryName());
+                    }
                 }
             }
             if(!stacks.isEmpty()) {
@@ -60,7 +68,6 @@ public class ProfessionPlugin implements IModPlugin {
                 for(int i = 0; i < stacks.size(); i++) {
                     map.put(i, stacks.get(i));
                 }
-
                 entries.add(new ProfessionEntry(profession, map));
             }
         }

@@ -7,7 +7,6 @@ import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -19,23 +18,16 @@ import java.util.function.Function;
 public class ProfessionEntry {
     private final VillagerProfession profession;
     private final List<ItemStack> blockStacks;
-    private final List<ResourceLocation> knownItems;
 
     public ProfessionEntry(VillagerProfession profession, Int2ObjectMap<ItemStack> stacks) {
         this.profession = profession;
         this.blockStacks = new LinkedList<>();
-        this.knownItems = new LinkedList<>();
         addProfessionStacks(stacks);
     }
 
     public void addProfessionStacks(Int2ObjectMap<ItemStack> stackList) {
         for (int i = 0; i < stackList.size(); i++) {
-            ItemStack stack = stackList.get(i);
-            ResourceLocation location = stack.getItem().getRegistryName();
-            if(!stack.isEmpty() && !knownItems.contains(location)) {
-                this.blockStacks.add(stack);
-                this.knownItems.add(stack.getItem().getRegistryName());
-            }
+            this.blockStacks.add(stackList.get(i));
         }
     }
 
@@ -52,7 +44,7 @@ public class ProfessionEntry {
         CompoundNBT nbt = new CompoundNBT();
         nbt.putString("id", ForgeRegistries.ENTITIES.getKey(EntityType.VILLAGER).toString());
         Minecraft mc = Minecraft.getInstance();
-        World world = mc.isSingleplayer() ? mc.getIntegratedServer().getWorlds().iterator().next() : mc.world;
+        World world = mc.isSingleplayer() && mc.getIntegratedServer() != null ? mc.getIntegratedServer().getWorlds().iterator().next() : mc.world;
         if(world != null) {
             VillagerEntity villagerEntity = (VillagerEntity)EntityType.loadEntityAndExecute(nbt, world, Function.identity());
             if(villagerEntity != null) {
