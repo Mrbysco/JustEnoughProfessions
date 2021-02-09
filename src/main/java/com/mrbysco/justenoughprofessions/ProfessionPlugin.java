@@ -54,7 +54,7 @@ public class ProfessionPlugin implements IModPlugin {
             PointOfInterestType poiType = profession.getPointOfInterest();
 
             for(BlockState state : poiType.blockStates) {
-                Block block = state.getBlock();
+                Block block = ForgeRegistries.BLOCKS.getValue(state.getBlock().getRegistryName());
                 if(block != null) {
                     ItemStack stack = CompatHelper.compatCheck(new ItemStack(block), profession.getRegistryName());
                     ResourceLocation location = stack.getItem().getRegistryName();
