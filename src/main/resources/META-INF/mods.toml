@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[34,)"
+loaderVersion="[36,)"
 #issueTrackerURL="https://github.com/mrbysco/?/issues"
 license="MIT"
 
@@ -16,6 +16,6 @@ Adds info about professions to JEI
 [[dependencies.justenoughprofessions]]
 modId="jei"
 mandatory=true
-versionRange="[7.5.0,)"
+versionRange="[7.6.1,)"
 ordering="NONE"
 side="BOTH"
