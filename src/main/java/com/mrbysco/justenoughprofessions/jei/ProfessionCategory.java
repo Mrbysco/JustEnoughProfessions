@@ -47,7 +47,7 @@ public class ProfessionCategory<T extends IRecipeCategoryExtension> implements I
 
     @Override
     public String getTitle() {
-        return I18n.format("justenoughprofessions.professions.title");
+        return I18n.get("justenoughprofessions.professions.title");
     }
 
     @Override
@@ -81,14 +81,14 @@ public class ProfessionCategory<T extends IRecipeCategoryExtension> implements I
         // Draw entity
         recipe.drawInfo(getBackground().getWidth(), getBackground().getHeight(), matrixStack, mouseX, mouseY);
         // Draw entity name
-        matrixStack.push();
+        matrixStack.pushPose();
         matrixStack.translate(1, 0, 0);
-        FontRenderer font = Minecraft.getInstance().fontRenderer;
+        FontRenderer font = Minecraft.getInstance().font;
         String text = Screen.hasShiftDown() ? recipe.getProfessionName().toString() : recipe.getProfessionName().getPath();
-        if(font.getStringWidth(text) > 122) {
+        if(font.width(text) > 122) {
             matrixStack.scale(0.75F, 0.75F, 0.75F);
         }
-        font.drawString(matrixStack, text, 0, 0, 8);
-        matrixStack.pop();
+        font.draw(matrixStack, text, 0, 0, 8);
+        matrixStack.popPose();
     }
 }

@@ -51,9 +51,9 @@ public class ProfessionPlugin implements IModPlugin {
         for(VillagerProfession profession : ForgeRegistries.PROFESSIONS) {
             List<ItemStack> stacks = new LinkedList<>();
             List<ResourceLocation> knownItems = new LinkedList<>();
-            PointOfInterestType poiType = profession.getPointOfInterest();
+            PointOfInterestType poiType = profession.getJobPoiType();
 
-            for(BlockState state : poiType.blockStates) {
+            for(BlockState state : poiType.matchingStates) {
                 Block block = ForgeRegistries.BLOCKS.getValue(state.getBlock().getRegistryName());
                 if(block != null) {
                     ItemStack stack = CompatHelper.compatCheck(new ItemStack(block), profession.getRegistryName());

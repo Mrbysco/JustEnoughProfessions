@@ -27,10 +27,10 @@ public class CompatHelper {
 
 	@SubscribeEvent
 	public static void handleTooltips(ItemTooltipEvent event) {
-		if(Minecraft.getInstance().currentScreen instanceof IRecipesGui) {
+		if(Minecraft.getInstance().screen instanceof IRecipesGui) {
 			ItemStack stack = event.getItemStack();
 			if(stack.hasTag() && stack.getTag().getBoolean("JEP_outfitter")) {
-				event.getToolTip().add(new StringTextComponent("Needs to have a shader applied").mergeStyle(TextFormatting.GOLD));
+				event.getToolTip().add(new StringTextComponent("Needs to have a shader applied").withStyle(TextFormatting.GOLD));
 			}
 		}
 	}
