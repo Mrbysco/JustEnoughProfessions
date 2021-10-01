@@ -2,7 +2,7 @@ name: Build and Maven
 
 on:
   push:
-    branches: [ main ]
+    branches: [ 1.17.1 ]
 
 jobs:
   build:

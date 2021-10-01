@@ -1,13 +1,13 @@
 package com.mrbysco.justenoughprofessions.jei;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mrbysco.justenoughprofessions.RenderHelper;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.extensions.IRecipeCategoryExtension;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
 
@@ -32,8 +32,8 @@ public class ProfessionWrapper implements IRecipeCategoryExtension {
     }
 
     @Override
-    public void drawInfo(int recipeWidth, int recipeHeight, MatrixStack matrixStack, double mouseX, double mouseY) {
-        VillagerEntity entityVillager = entry.getVillagerEntity();
+    public void drawInfo(int recipeWidth, int recipeHeight, PoseStack matrixStack, double mouseX, double mouseY) {
+        Villager entityVillager = entry.getVillagerEntity();
         if(entityVillager != null) {
             RenderHelper.renderEntity(matrixStack, 22, 62, 25.0F,
                     38 - mouseX,

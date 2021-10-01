@@ -1,12 +1,12 @@
 package com.mrbysco.justenoughprofessions.compat;
 
 import mezz.jei.api.runtime.IRecipesGui;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -16,7 +16,7 @@ public class CompatHelper {
 	public static ItemStack compatCheck(ItemStack stack, @Nullable ResourceLocation profession) {
 		if(profession != null) {
 			if(profession.equals(new ResourceLocation("immersiveengineering", "outfitter"))) {
-				CompoundNBT tag = stack.hasTag() ? stack.getTag() : new CompoundNBT();
+				CompoundTag tag = stack.hasTag() ? stack.getTag() : new CompoundTag();
 				tag.putBoolean("JEP_outfitter", true);
 				stack.setTag(tag);
 				return stack;
@@ -30,7 +30,7 @@ public class CompatHelper {
 		if(Minecraft.getInstance().screen instanceof IRecipesGui) {
 			ItemStack stack = event.getItemStack();
 			if(stack.hasTag() && stack.getTag().getBoolean("JEP_outfitter")) {
-				event.getToolTip().add(new StringTextComponent("Needs to have a shader applied").withStyle(TextFormatting.GOLD));
+				event.getToolTip().add(new TextComponent("Needs to have a shader applied").withStyle(ChatFormatting.GOLD));
 			}
 		}
 	}

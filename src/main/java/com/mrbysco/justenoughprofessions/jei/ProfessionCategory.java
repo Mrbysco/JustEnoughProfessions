@@ -1,6 +1,6 @@
 package com.mrbysco.justenoughprofessions.jei;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mrbysco.justenoughprofessions.JustEnoughProfessions;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -11,10 +11,11 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.category.extensions.IRecipeCategoryExtension;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 
 public class ProfessionCategory<T extends IRecipeCategoryExtension> implements IRecipeCategory<ProfessionWrapper> {
     public static final ResourceLocation UID = new ResourceLocation(JustEnoughProfessions.MOD_ID, "professions");
@@ -46,8 +47,8 @@ public class ProfessionCategory<T extends IRecipeCategoryExtension> implements I
     }
 
     @Override
-    public String getTitle() {
-        return I18n.get("justenoughprofessions.professions.title");
+    public Component getTitle() {
+        return new TranslatableComponent("justenoughprofessions.professions.title");
     }
 
     @Override
@@ -74,7 +75,7 @@ public class ProfessionCategory<T extends IRecipeCategoryExtension> implements I
     }
 
     @Override
-    public void draw(ProfessionWrapper recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(ProfessionWrapper recipe, PoseStack matrixStack, double mouseX, double mouseY) {
         // Draw Drops
         this.slotDrawable.draw(matrixStack, X_FIRST_ITEM, Y_ITEM_DISTANCE);
 
@@ -83,7 +84,7 @@ public class ProfessionCategory<T extends IRecipeCategoryExtension> implements I
         // Draw entity name
         matrixStack.pushPose();
         matrixStack.translate(1, 0, 0);
-        FontRenderer font = Minecraft.getInstance().font;
+        Font font = Minecraft.getInstance().font;
         String text = Screen.hasShiftDown() ? recipe.getProfessionName().toString() : recipe.getProfessionName().getPath();
         if(font.width(text) > 122) {
             matrixStack.scale(0.75F, 0.75F, 0.75F);

@@ -1,16 +1,16 @@
 package com.mrbysco.justenoughprofessions;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.vector.Quaternion;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.world.entity.LivingEntity;
 
 public class RenderHelper {
-    public static void renderEntity(MatrixStack matrixStack, int x, int y, double scale, double yaw, double pitch, LivingEntity livingEntity) {
+    public static void renderEntity(PoseStack matrixStack, int x, int y, double scale, double yaw, double pitch, LivingEntity livingEntity) {
         if (livingEntity.level == null) livingEntity.level = Minecraft.getInstance().level;
         matrixStack.pushPose();
         matrixStack.translate((float)x, (float)y, 50f);
@@ -20,15 +20,15 @@ public class RenderHelper {
         matrixStack.mulPose(Vector3f.XP.rotationDegrees(((float) Math.atan((-40 / 40.0F))) * 10.0F));
 
         livingEntity.yBodyRot = (float) -(yaw/40.F) * 20.0F;
-        livingEntity.yRot = (float) -(yaw/40.F) * 20.0F;
-        livingEntity.yHeadRot = livingEntity.yRot;
-        livingEntity.yHeadRotO = livingEntity.yRot;
+        livingEntity.setYRot((float) -(yaw/40.F) * 20.0F);
+        livingEntity.yHeadRot = livingEntity.getYRot();
+        livingEntity.yHeadRotO = livingEntity.getYRot();
 
         matrixStack.translate(0.0F, livingEntity.getMyRidingOffset(), 0.0F);
-        EntityRendererManager entityrenderermanager = Minecraft.getInstance().getEntityRenderDispatcher();
+        EntityRenderDispatcher entityrenderermanager = Minecraft.getInstance().getEntityRenderDispatcher();
         entityrenderermanager.overrideCameraOrientation(Quaternion.ONE);
         entityrenderermanager.setRenderShadow(false);
-        final IRenderTypeBuffer.Impl renderTypeBuffer = Minecraft.getInstance().renderBuffers().bufferSource();
+        final MultiBufferSource.BufferSource renderTypeBuffer = Minecraft.getInstance().renderBuffers().bufferSource();
         RenderSystem.runAsFancy(() -> {
             entityrenderermanager.render(livingEntity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, matrixStack, renderTypeBuffer, 15728880);
         });
