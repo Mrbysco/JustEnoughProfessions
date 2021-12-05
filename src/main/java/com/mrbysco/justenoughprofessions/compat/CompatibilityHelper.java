@@ -12,8 +12,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import javax.annotation.Nullable;
 
-public class CompatHelper {
-	public static ItemStack compatCheck(ItemStack stack, @Nullable ResourceLocation profession) {
+public class CompatibilityHelper {
+	public static ItemStack compatibilityCheck(ItemStack stack, @Nullable ResourceLocation profession) {
 		if(profession != null) {
 			if(profession.equals(new ResourceLocation("immersiveengineering", "outfitter"))) {
 				CompoundTag tag = stack.hasTag() ? stack.getTag() : new CompoundTag();

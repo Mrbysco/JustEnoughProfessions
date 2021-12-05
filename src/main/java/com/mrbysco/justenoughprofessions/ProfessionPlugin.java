@@ -1,6 +1,6 @@
 package com.mrbysco.justenoughprofessions;
 
-import com.mrbysco.justenoughprofessions.compat.CompatHelper;
+import com.mrbysco.justenoughprofessions.compat.CompatibilityHelper;
 import com.mrbysco.justenoughprofessions.jei.ProfessionCategory;
 import com.mrbysco.justenoughprofessions.jei.ProfessionEntry;
 import com.mrbysco.justenoughprofessions.jei.ProfessionWrapper;
@@ -56,7 +56,7 @@ public class ProfessionPlugin implements IModPlugin {
             for(BlockState state : poiType.matchingStates) {
                 Block block = ForgeRegistries.BLOCKS.getValue(state.getBlock().getRegistryName());
                 if(block != null) {
-                    ItemStack stack = CompatHelper.compatCheck(new ItemStack(block), profession.getRegistryName());
+                    ItemStack stack = CompatibilityHelper.compatibilityCheck(new ItemStack(block), profession.getRegistryName());
                     ResourceLocation location = stack.getItem().getRegistryName();
                     if(!stack.isEmpty() && !knownItems.contains(location)) {
                         stacks.add(stack);

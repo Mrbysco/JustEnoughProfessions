@@ -1,6 +1,6 @@
 package com.mrbysco.justenoughprofessions;
 
-import com.mrbysco.justenoughprofessions.compat.CompatHelper;
+import com.mrbysco.justenoughprofessions.compat.CompatibilityHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
@@ -23,7 +23,7 @@ public class JustEnoughProfessions {
                         (remoteVersionString,networkBool) -> networkBool));
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-            MinecraftForge.EVENT_BUS.addListener(CompatHelper::handleTooltips);
+            MinecraftForge.EVENT_BUS.addListener(CompatibilityHelper::handleTooltips);
         });
     }
 }
