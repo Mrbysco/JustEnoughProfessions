@@ -98,9 +98,9 @@ repositories {
         }
     }
     maven {
-        // location of a maven mirror for JEI files, as a fallback
-        name = "ModMaven"
-        url = "https://modmaven.k-4u.nl"
+        // location of the maven that hosts Immersive Engineering files
+        name = "TeamAcronymCoders"
+        url = "https://maven.teamacronymcoders.com/"
         content {
             includeGroup "blusunrize.immersiveengineering"
         }
