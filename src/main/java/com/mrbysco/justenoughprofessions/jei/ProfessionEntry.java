@@ -44,12 +44,12 @@ public class ProfessionEntry {
         CompoundTag nbt = new CompoundTag();
         nbt.putString("id", ForgeRegistries.ENTITIES.getKey(EntityType.VILLAGER).toString());
         Minecraft mc = Minecraft.getInstance();
-        Level world = mc.hasSingleplayerServer() && mc.getSingleplayerServer() != null ? mc.getSingleplayerServer().getAllLevels().iterator().next() : mc.level;
-        if(world != null) {
-            Villager villagerEntity = (Villager)EntityType.loadEntityRecursive(nbt, world, Function.identity());
-            if(villagerEntity != null) {
-                villagerEntity.setVillagerData(villagerEntity.getVillagerData().setProfession(this.profession));
-                return villagerEntity;
+        Level level = mc.hasSingleplayerServer() && mc.getSingleplayerServer() != null ? mc.getSingleplayerServer().getAllLevels().iterator().next() : mc.level;
+        if(level != null) {
+            Villager villager = (Villager)EntityType.loadEntityRecursive(nbt, level, Function.identity());
+            if(villager != null) {
+                villager.setVillagerData(villager.getVillagerData().setProfession(this.profession));
+                return villager;
             }
         }
         return null;

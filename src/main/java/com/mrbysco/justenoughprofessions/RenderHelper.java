@@ -10,30 +10,30 @@ import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.world.entity.LivingEntity;
 
 public class RenderHelper {
-    public static void renderEntity(PoseStack matrixStack, int x, int y, double scale, double yaw, double pitch, LivingEntity livingEntity) {
+    public static void renderEntity(PoseStack poseStack, int x, int y, double scale, double yaw, double pitch, LivingEntity livingEntity) {
         if (livingEntity.level == null) livingEntity.level = Minecraft.getInstance().level;
-        matrixStack.pushPose();
-        matrixStack.translate((float)x, (float)y, 50f);
-        matrixStack.scale((float) scale, (float) scale, (float) scale);
-        matrixStack.mulPose(Vector3f.ZP.rotationDegrees(180.0F));
+        poseStack.pushPose();
+        poseStack.translate((float)x, (float)y, 50f);
+        poseStack.scale((float) scale, (float) scale, (float) scale);
+        poseStack.mulPose(Vector3f.ZP.rotationDegrees(180.0F));
         // Rotate entity
-        matrixStack.mulPose(Vector3f.XP.rotationDegrees(((float) Math.atan((-40 / 40.0F))) * 10.0F));
+        poseStack.mulPose(Vector3f.XP.rotationDegrees(((float) Math.atan((-40 / 40.0F))) * 10.0F));
 
         livingEntity.yBodyRot = (float) -(yaw/40.F) * 20.0F;
         livingEntity.setYRot((float) -(yaw/40.F) * 20.0F);
         livingEntity.yHeadRot = livingEntity.getYRot();
         livingEntity.yHeadRotO = livingEntity.getYRot();
 
-        matrixStack.translate(0.0F, livingEntity.getMyRidingOffset(), 0.0F);
-        EntityRenderDispatcher entityrenderermanager = Minecraft.getInstance().getEntityRenderDispatcher();
-        entityrenderermanager.overrideCameraOrientation(Quaternion.ONE);
-        entityrenderermanager.setRenderShadow(false);
-        final MultiBufferSource.BufferSource renderTypeBuffer = Minecraft.getInstance().renderBuffers().bufferSource();
+        poseStack.translate(0.0F, livingEntity.getMyRidingOffset(), 0.0F);
+        EntityRenderDispatcher entityRenderDispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
+        entityRenderDispatcher.overrideCameraOrientation(Quaternion.ONE);
+        entityRenderDispatcher.setRenderShadow(false);
+        final MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
         RenderSystem.runAsFancy(() -> {
-            entityrenderermanager.render(livingEntity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, matrixStack, renderTypeBuffer, 15728880);
+            entityRenderDispatcher.render(livingEntity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, poseStack, bufferSource, 15728880);
         });
-        renderTypeBuffer.endBatch();
-        entityrenderermanager.setRenderShadow(true);
-        matrixStack.popPose();
+        bufferSource.endBatch();
+        entityRenderDispatcher.setRenderShadow(true);
+        poseStack.popPose();
     }
 }

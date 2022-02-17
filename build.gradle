@@ -94,15 +94,15 @@ repositories {
         name = "Progwml6 maven"
         url = "https://dvs1.progwml6.com/files/maven/"
     }
-//    maven {
-//        // location of a maven mirror for JEI files, as a fallback
-//        name = "ModMaven"
-//        url = "https://modmaven.k-4u.nl"
-//    }
-//	maven {
-//        name = "Heh"
-//        url = 'https://maven.latmod.com/'
-//    }
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.k-4u.nl"
+    }
+	maven {
+        name = "Heh"
+        url = 'https://maven.latmod.com/'
+    }
 }
 
 
@@ -112,8 +112,8 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${version_jei}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${version_jei}")
 
-//    compileOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${mc_version}-${version_ie}")
-//    runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${mc_version}-${version_ie}")
+    compileOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${mc_version}-${version_ie}")
+    runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${mc_version}-${version_ie}")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

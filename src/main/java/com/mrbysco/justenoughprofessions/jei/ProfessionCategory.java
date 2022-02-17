@@ -75,21 +75,21 @@ public class ProfessionCategory<T extends IRecipeCategoryExtension> implements I
     }
 
     @Override
-    public void draw(ProfessionWrapper recipe, PoseStack matrixStack, double mouseX, double mouseY) {
+    public void draw(ProfessionWrapper professionWrapper, PoseStack poseStack, double mouseX, double mouseY) {
         // Draw Drops
-        this.slotDrawable.draw(matrixStack, X_FIRST_ITEM, Y_ITEM_DISTANCE);
+        this.slotDrawable.draw(poseStack, X_FIRST_ITEM, Y_ITEM_DISTANCE);
 
         // Draw entity
-        recipe.drawInfo(getBackground().getWidth(), getBackground().getHeight(), matrixStack, mouseX, mouseY);
+        professionWrapper.drawInfo(getBackground().getWidth(), getBackground().getHeight(), poseStack, mouseX, mouseY);
         // Draw entity name
-        matrixStack.pushPose();
-        matrixStack.translate(1, 0, 0);
+        poseStack.pushPose();
+        poseStack.translate(1, 0, 0);
         Font font = Minecraft.getInstance().font;
-        String text = Screen.hasShiftDown() ? recipe.getProfessionName().toString() : recipe.getProfessionName().getPath();
+        String text = Screen.hasShiftDown() ? professionWrapper.getProfessionName().toString() : professionWrapper.getProfessionName().getPath();
         if(font.width(text) > 122) {
-            matrixStack.scale(0.75F, 0.75F, 0.75F);
+            poseStack.scale(0.75F, 0.75F, 0.75F);
         }
-        font.draw(matrixStack, text, 0, 0, 8);
-        matrixStack.popPose();
+        font.draw(poseStack, text, 0, 0, 8);
+        poseStack.popPose();
     }
 }
