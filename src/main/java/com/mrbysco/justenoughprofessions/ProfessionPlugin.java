@@ -25,57 +25,58 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
 @JeiPlugin
 public class ProfessionPlugin implements IModPlugin {
-    private static final ResourceLocation UID = new ResourceLocation(JustEnoughProfessions.MOD_ID, "jei_plugin");
+	private static final ResourceLocation UID = new ResourceLocation(JustEnoughProfessions.MOD_ID, "jei_plugin");
 
-    @Override
-    public ResourceLocation getPluginUid() {
-        return UID;
-    }
+	@Override
+	public ResourceLocation getPluginUid() {
+		return UID;
+	}
 
-    @Override
-    public void registerCategories(IRecipeCategoryRegistration registration) {
-        registration.addRecipeCategories(new ProfessionCategory(registration.getJeiHelpers().getGuiHelper()));
-    }
+	@Override
+	public void registerCategories(IRecipeCategoryRegistration registration) {
+		registration.addRecipeCategories(new ProfessionCategory(registration.getJeiHelpers().getGuiHelper()));
+	}
 
-    @Override
-    public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(Items.EMERALD), ProfessionCategory.UID);
-        registration.addRecipeCatalyst(new ItemStack(Items.VILLAGER_SPAWN_EGG), ProfessionCategory.UID);
-    }
+	@Override
+	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+		registration.addRecipeCatalyst(new ItemStack(Items.EMERALD), ProfessionCategory.UID);
+		registration.addRecipeCatalyst(new ItemStack(Items.VILLAGER_SPAWN_EGG), ProfessionCategory.UID);
+	}
 
-    @Override
-    public void registerRecipes(IRecipeRegistration registration) {
-        List<ProfessionEntry> entries = new LinkedList<>();
-        for(VillagerProfession profession : ForgeRegistries.PROFESSIONS) {
-            List<ItemStack> stacks = new LinkedList<>();
-            List<ResourceLocation> knownItems = new LinkedList<>();
-            PoiType poiType = profession.getJobPoiType();
+	@Override
+	public void registerRecipes(IRecipeRegistration registration) {
+		List<ProfessionEntry> entries = new LinkedList<>();
+		for (VillagerProfession profession : ForgeRegistries.PROFESSIONS) {
+			List<ItemStack> stacks = new LinkedList<>();
+			List<ResourceLocation> knownItems = new LinkedList<>();
+			PoiType poiType = profession.getJobPoiType();
 
-            for(BlockState state : poiType.matchingStates) {
-                Block block = ForgeRegistries.BLOCKS.getValue(state.getBlock().getRegistryName());
-                if(block != null) {
-                    ItemStack stack = CompatibilityHelper.compatibilityCheck(new ItemStack(block), profession.getRegistryName());
-                    ResourceLocation location = stack.getItem().getRegistryName();
-                    if(!stack.isEmpty() && !knownItems.contains(location)) {
-                        stacks.add(stack);
-                        knownItems.add(stack.getItem().getRegistryName());
-                    }
-                }
-            }
-            if(!stacks.isEmpty()) {
-                Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
-                for(int i = 0; i < stacks.size(); i++) {
-                    map.put(i, stacks.get(i));
-                }
-                entries.add(new ProfessionEntry(profession, map));
-            }
-        }
-        registration.addRecipes(asRecipes(entries, ProfessionWrapper::new), ProfessionCategory.UID);
-    }
+			for (BlockState state : poiType.matchingStates) {
+				Block block = ForgeRegistries.BLOCKS.getValue(state.getBlock().getRegistryName());
+				if (block != null) {
+					ItemStack stack = CompatibilityHelper.compatibilityCheck(new ItemStack(block), profession.getRegistryName());
+					ResourceLocation location = stack.getItem().getRegistryName();
+					if (!stack.isEmpty() && !knownItems.contains(location)) {
+						stacks.add(stack);
+						knownItems.add(stack.getItem().getRegistryName());
+					}
+				}
+			}
+			if (!stacks.isEmpty()) {
+				Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
+				for (int i = 0; i < stacks.size(); i++) {
+					map.put(i, stacks.get(i));
+				}
+				entries.add(new ProfessionEntry(profession, map));
+			}
+		}
+		registration.addRecipes(asRecipes(entries, ProfessionWrapper::new), ProfessionCategory.UID);
+	}
 
-    private static <T, R> Collection<R> asRecipes(Collection<T> collection, Function<T, R> transformer) {
-        return collection.stream().map(transformer).collect(Collectors.toList());
-    }
+	private static <T, R> Collection<R> asRecipes(Collection<T> collection, Function<T, R> transformer) {
+		return collection.stream().map(transformer).collect(Collectors.toList());
+	}
 }
