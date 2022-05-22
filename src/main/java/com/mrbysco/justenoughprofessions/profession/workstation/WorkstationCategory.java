@@ -1,7 +1,8 @@
-package com.mrbysco.justenoughprofessions.jei;
+package com.mrbysco.justenoughprofessions.profession.workstation;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mrbysco.justenoughprofessions.JustEnoughProfessions;
+import com.mrbysco.justenoughprofessions.ProfessionPlugin;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
@@ -18,14 +19,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 
-public class ProfessionCategory<T extends IRecipeCategoryExtension> implements IRecipeCategory<ProfessionWrapper> {
-	public static final ResourceLocation UID = new ResourceLocation(JustEnoughProfessions.MOD_ID, "professions");
-
+public class WorkstationCategory<T extends IRecipeCategoryExtension> implements IRecipeCategory<WorkstationWrapper> {
 	private final IDrawableStatic background;
 	private final IDrawableStatic icon;
 	private final IDrawableStatic slotDrawable;
+	private final TranslatableComponent title;
 
-	public ProfessionCategory(IGuiHelper guiHelper) {
+	public WorkstationCategory(IGuiHelper guiHelper) {
 		ResourceLocation location = new ResourceLocation(JustEnoughProfessions.MOD_ID, "textures/gui/professions.png");
 		this.background = guiHelper.drawableBuilder(location, 0, 0, 72, 62).addPadding(1, 0, 0, 50).build();
 
@@ -33,21 +33,24 @@ public class ProfessionCategory<T extends IRecipeCategoryExtension> implements I
 		this.icon = guiHelper.createDrawable(iconLocation, 0, 0, 16, 16);
 
 		this.slotDrawable = guiHelper.getSlotDrawable();
+		this.title = new TranslatableComponent("justenoughprofessions.workstations.title");
 	}
 
+	@SuppressWarnings("removal")
 	@Override
 	public ResourceLocation getUid() {
-		return UID;
+		return ProfessionPlugin.WORKSTATION;
 	}
 
+	@SuppressWarnings("removal")
 	@Override
-	public Class<? extends ProfessionWrapper> getRecipeClass() {
-		return ProfessionWrapper.class;
+	public Class<? extends WorkstationWrapper> getRecipeClass() {
+		return WorkstationWrapper.class;
 	}
 
 	@Override
 	public Component getTitle() {
-		return new TranslatableComponent("justenoughprofessions.professions.title");
+		return this.title;
 	}
 
 	@Override
@@ -60,23 +63,23 @@ public class ProfessionCategory<T extends IRecipeCategoryExtension> implements I
 		return icon;
 	}
 
-    @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, ProfessionWrapper recipe, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 76, 23).addItemStacks(recipe.getBlockStacks());
-    }
+	@Override
+	public void setRecipe(IRecipeLayoutBuilder builder, WorkstationWrapper workstationWrapper, IFocusGroup focuses) {
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 76, 23).addItemStacks(workstationWrapper.getBlockStacks());
+	}
 
 	@Override
-	public void draw(ProfessionWrapper professionWrapper, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
+	public void draw(WorkstationWrapper workstationWrapper, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
 		// Draw Drops
 		this.slotDrawable.draw(poseStack, 75, 22);
 
 		// Draw entity
-		professionWrapper.drawInfo(getBackground().getWidth(), getBackground().getHeight(), poseStack, mouseX, mouseY);
+		workstationWrapper.drawInfo(getBackground().getWidth(), getBackground().getHeight(), poseStack, mouseX, mouseY);
 		// Draw entity name
 		poseStack.pushPose();
 		poseStack.translate(1, 0, 0);
 		Font font = Minecraft.getInstance().font;
-		String text = Screen.hasShiftDown() ? professionWrapper.getProfessionName().toString() : professionWrapper.getProfessionName().getPath();
+		String text = Screen.hasShiftDown() ? workstationWrapper.getProfessionName().toString() : workstationWrapper.getProfessionName().getPath();
 		if (font.width(text) > 122) {
 			poseStack.scale(0.75F, 0.75F, 0.75F);
 		}

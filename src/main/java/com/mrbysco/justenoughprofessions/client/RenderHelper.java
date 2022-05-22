@@ -1,4 +1,4 @@
-package com.mrbysco.justenoughprofessions;
+package com.mrbysco.justenoughprofessions.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;

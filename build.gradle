@@ -115,8 +115,7 @@ dependencies {
 
     implementation fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
 
-//    compileOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${mc_version}-${ie_version}")
-//    runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${mc_version}-${ie_version}")
+    implementation fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${mc_version}-${ie_version}")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
