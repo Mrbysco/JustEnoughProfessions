@@ -1,7 +1,6 @@
-package com.mrbysco.justenoughprofessions.profession.workstation;
+package com.mrbysco.justenoughprofessions.bartering;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mrbysco.justenoughprofessions.JustEnoughProfessions;
 import com.mrbysco.justenoughprofessions.ProfessionPlugin;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -15,39 +14,37 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.category.extensions.IRecipeCategoryExtension;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-public class WorkstationCategory<T extends IRecipeCategoryExtension> implements IRecipeCategory<WorkstationWrapper> {
+public class BarterCategory<T extends IRecipeCategoryExtension> implements IRecipeCategory<BarterWrapper> {
 	private final IDrawableStatic background;
 	private final IDrawable icon;
 	private final IDrawableStatic slotDrawable;
 	private final TranslatableComponent title;
 
-	public WorkstationCategory(IGuiHelper guiHelper) {
-		ResourceLocation location = new ResourceLocation(JustEnoughProfessions.MOD_ID, "textures/gui/professions.png");
-		this.background = guiHelper.drawableBuilder(location, 0, 0, 72, 62).addPadding(1, 0, 0, 50).build();
+	public BarterCategory(IGuiHelper guiHelper) {
+		this.background = guiHelper.createBlankDrawable(100, 60);
 
-		this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(Items.LECTERN));
+		this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(Items.GOLD_INGOT));
 
 		this.slotDrawable = guiHelper.getSlotDrawable();
-		this.title = new TranslatableComponent("justenoughprofessions.workstations.title");
+		this.title = new TranslatableComponent("justenoughprofessions.barter.title");
 	}
 
 	@SuppressWarnings("removal")
 	@Override
 	public ResourceLocation getUid() {
-		return ProfessionPlugin.WORKSTATION;
+		return ProfessionPlugin.BARTER;
 	}
 
 	@SuppressWarnings("removal")
 	@Override
-	public Class<? extends WorkstationWrapper> getRecipeClass() {
-		return WorkstationWrapper.class;
+	public Class<? extends BarterWrapper> getRecipeClass() {
+		return BarterWrapper.class;
 	}
 
 	@Override
@@ -66,26 +63,36 @@ public class WorkstationCategory<T extends IRecipeCategoryExtension> implements 
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayoutBuilder builder, WorkstationWrapper workstationWrapper, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 76, 23).addItemStacks(workstationWrapper.getBlockStacks());
+	public void setRecipe(IRecipeLayoutBuilder builder, BarterWrapper barterWrapper, IFocusGroup focuses) {
+		builder.addSlot(RecipeIngredientRole.INPUT, 37, 21).addItemStack(new ItemStack(Items.GOLD_INGOT));
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 71, 21).addItemStacks(barterWrapper.getOutputs());
 	}
 
 	@Override
-	public void draw(WorkstationWrapper workstationWrapper, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
+	public void draw(BarterWrapper barterWrapper, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
 		// Draw Slots
-		this.slotDrawable.draw(poseStack, 75, 22);
+		this.slotDrawable.draw(poseStack, 36, 20);
+		this.slotDrawable.draw(poseStack, 70, 20);
 
 		// Draw entity
-		workstationWrapper.drawInfo(getBackground().getWidth(), getBackground().getHeight(), poseStack, mouseX, mouseY);
+		poseStack.pushPose();
+		poseStack.translate(-6, 18, 0);
+		barterWrapper.drawInfo(getBackground().getWidth(), getBackground().getHeight(), poseStack, mouseX, mouseY);
+		poseStack.popPose();
 		// Draw entity name
 		poseStack.pushPose();
 		poseStack.translate(1, 0, 0);
 		Font font = Minecraft.getInstance().font;
-		String text = Screen.hasShiftDown() ? workstationWrapper.getProfessionName().toString() : workstationWrapper.getProfessionName().getPath();
-		if (font.width(text) > 122) {
-			poseStack.scale(0.75F, 0.75F, 0.75F);
-		}
+		String text = Math.round((barterWrapper.getChance() * 100) * 100.0) / 100.0 + "%";
 		font.draw(poseStack, text, 0, 0, 8);
+		String amount = "";
+		if (barterWrapper.getMin() > 0 && barterWrapper.getMax() > 0) {
+			amount = barterWrapper.getMin() + "-" + barterWrapper.getMax();
+		} else {
+			amount = "1";
+		}
+		font.draw(poseStack, amount, 78 - (font.width(amount) / 2), 40, 8);
+
 		poseStack.popPose();
 	}
 }

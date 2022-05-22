@@ -19,7 +19,7 @@ public class WorkstationWrapper implements IRecipeCategoryExtension {
 	}
 
 	public WorkstationWrapper(VillagerProfession profession, Int2ObjectMap<ItemStack> stacks) {
-		this.entry = new WorkstationEntry(profession, stacks);
+		this(new WorkstationEntry(profession, stacks));
 	}
 
 	public ResourceLocation getProfessionName() {

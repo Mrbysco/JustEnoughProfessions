@@ -9,6 +9,9 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 
+import java.util.List;
+import java.util.Map;
+
 public class TradeWrapper implements IRecipeCategoryExtension {
 	private final TradeEntry entry;
 
@@ -17,14 +20,14 @@ public class TradeWrapper implements IRecipeCategoryExtension {
 	}
 
 	public TradeWrapper(VillagerProfession profession, Int2ObjectMap<VillagerTrades.ItemListing[]> stacks) {
-		this.entry = new TradeEntry(profession, stacks);
+		this(new TradeEntry(profession, stacks));
 	}
 
 	public ResourceLocation getProfessionName() {
 		return entry.profession().getRegistryName();
 	}
 
-	public Int2ObjectMap<VillagerTrades.ItemListing[]> getItemListings() {
+	public Map<Integer, List<TradeListing>> getItemListings() {
 		return this.entry.getItemListings();
 	}
 
@@ -36,7 +39,7 @@ public class TradeWrapper implements IRecipeCategoryExtension {
 	public void drawInfo(int recipeWidth, int recipeHeight, PoseStack poseStack, double mouseX, double mouseY) {
 		Villager entityVillager = entry.getVillagerEntity();
 		if (entityVillager != null) {
-			RenderHelper.renderEntity(poseStack, 22, 62, 25.0F,
+			RenderHelper.renderEntity(poseStack, 15, 80, 25.0F,
 					38 - mouseX,
 					80 - mouseY,
 					entityVillager);
