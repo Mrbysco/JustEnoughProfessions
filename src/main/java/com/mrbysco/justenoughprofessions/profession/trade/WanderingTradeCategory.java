@@ -16,7 +16,6 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.category.extensions.IRecipeCategoryExtension;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -26,13 +25,13 @@ import net.minecraft.world.item.ItemStack;
 import java.util.List;
 import java.util.Map;
 
-public class TradeCategory<T extends IRecipeCategoryExtension> implements IRecipeCategory<TradeWrapper> {
+public class WanderingTradeCategory<T extends IRecipeCategoryExtension> implements IRecipeCategory<WanderingTradeWrapper> {
 	private final IDrawableStatic background;
 	private final IDrawableStatic icon;
 	private final IDrawableStatic slotDrawable;
 	private final TranslatableComponent title;
 
-	public TradeCategory(IGuiHelper guiHelper) {
+	public WanderingTradeCategory(IGuiHelper guiHelper) {
 		this.background = guiHelper.createBlankDrawable(120, 100);
 
 		ResourceLocation iconLocation = new ResourceLocation(JustEnoughProfessions.MOD_ID, "textures/gui/profession_icon.png");
@@ -45,13 +44,13 @@ public class TradeCategory<T extends IRecipeCategoryExtension> implements IRecip
 	@SuppressWarnings("removal")
 	@Override
 	public ResourceLocation getUid() {
-		return ProfessionPlugin.TRADE;
+		return ProfessionPlugin.WANDERING_TRADE;
 	}
 
 	@SuppressWarnings("removal")
 	@Override
-	public Class<? extends TradeWrapper> getRecipeClass() {
-		return TradeWrapper.class;
+	public Class<? extends WanderingTradeWrapper> getRecipeClass() {
+		return WanderingTradeWrapper.class;
 	}
 
 	@Override
@@ -70,7 +69,7 @@ public class TradeCategory<T extends IRecipeCategoryExtension> implements IRecip
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayoutBuilder builder, TradeWrapper tradeWrapper, IFocusGroup focuses) {
+	public void setRecipe(IRecipeLayoutBuilder builder, WanderingTradeWrapper wanderingTradeWrapper, IFocusGroup focuses) {
 		IFocus<?> focus = focuses.getFocuses(RecipeIngredientRole.CATALYST).findFirst().orElse(null);
 		if (focus == null) {
 			focus = focuses.getFocuses(VanillaTypes.ITEM).findFirst().orElse(null);
@@ -78,8 +77,8 @@ public class TradeCategory<T extends IRecipeCategoryExtension> implements IRecip
 		ItemStack focusStack = focus == null ? ItemStack.EMPTY : focus.checkedCast(VanillaTypes.ITEM).isPresent() ?
 				focus.checkedCast(VanillaTypes.ITEM).get().getTypedValue().getIngredient() : ItemStack.EMPTY;
 
-		Map<Integer, List<TradeListing>> itemListings = tradeWrapper.getItemListings();
-		for (int i = 0; i < itemListings.size(); i++) {
+		Map<Integer, List<TradeListing>> itemListings = wanderingTradeWrapper.getItemListings();
+		for (int i = 0; i < 2; i++) {
 			NonNullList<ItemStack> inputStacks = NonNullList.create();
 			NonNullList<ItemStack> inputStacks2 = NonNullList.create();
 			NonNullList<ItemStack> outputStacks = NonNullList.create();
@@ -113,19 +112,19 @@ public class TradeCategory<T extends IRecipeCategoryExtension> implements IRecip
 					}
 				}
 			}
-			builder.addSlot(RecipeIngredientRole.INPUT, 61, 9 + (18 * i)).addItemStacks(inputStacks);
-			builder.addSlot(RecipeIngredientRole.INPUT, 81, 9 + (18 * i)).addItemStacks(inputStacks2);
-			builder.addSlot(RecipeIngredientRole.OUTPUT, 101, 9 + (18 * i)).addItemStacks(outputStacks);
+			builder.addSlot(RecipeIngredientRole.INPUT, 51, 32 + (36 * i)).addItemStacks(inputStacks);
+			builder.addSlot(RecipeIngredientRole.INPUT, 71, 32 + (36 * i)).addItemStacks(inputStacks2);
+			builder.addSlot(RecipeIngredientRole.OUTPUT, 91, 32 + (36 * i)).addItemStacks(outputStacks);
 		}
 	}
 
 	@Override
-	public void draw(TradeWrapper tradeWrapper, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
+	public void draw(WanderingTradeWrapper tradeWrapper, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
 		// Draw Slots
-		for (int i = 0; i < 5; i++) {
-			this.slotDrawable.draw(poseStack, 60, 8 + (18 * i));
-			this.slotDrawable.draw(poseStack, 80, 8 + (18 * i));
-			this.slotDrawable.draw(poseStack, 100, 8 + (18 * i));
+		for (int i = 0; i < 2; i++) {
+			this.slotDrawable.draw(poseStack, 50, 31 + (36 * i));
+			this.slotDrawable.draw(poseStack, 70, 31 + (36 * i));
+			this.slotDrawable.draw(poseStack, 90, 31 + (36 * i));
 		}
 
 		// Draw entity
@@ -136,17 +135,11 @@ public class TradeCategory<T extends IRecipeCategoryExtension> implements IRecip
 		// Draw entity name
 		poseStack.pushPose();
 		poseStack.translate(1, 0, 0);
-		String text = Screen.hasShiftDown() ? tradeWrapper.getProfessionName().toString() : tradeWrapper.getProfessionName().getPath();
-		Font font = Minecraft.getInstance().font;
-		if (font.width(text) > 122) {
-			poseStack.scale(0.75F, 0.75F, 0.75F);
-		}
-		font.draw(poseStack, text, 0, 0, 8);
-
 		poseStack.popPose();
-
-		for (int i = 0; i < 5; i++) {
-			font.draw(poseStack, "Lv. " + (i + 1), 34, 12 + (i * 18 + i), 8);
+		Font font = Minecraft.getInstance().font;
+		for (int i = 0; i < 2; i++) {
+			String text = i == 0 ? "Generic" : "Rare";
+			font.draw(poseStack, text, 50, 18 + (i * 36 + i), 8);
 		}
 	}
 }

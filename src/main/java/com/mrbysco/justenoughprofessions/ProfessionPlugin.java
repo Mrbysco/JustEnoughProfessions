@@ -5,6 +5,8 @@ import com.mrbysco.justenoughprofessions.bartering.BarterWrapper;
 import com.mrbysco.justenoughprofessions.compat.CompatibilityHelper;
 import com.mrbysco.justenoughprofessions.profession.trade.TradeCategory;
 import com.mrbysco.justenoughprofessions.profession.trade.TradeWrapper;
+import com.mrbysco.justenoughprofessions.profession.trade.WanderingTradeCategory;
+import com.mrbysco.justenoughprofessions.profession.trade.WanderingTradeWrapper;
 import com.mrbysco.justenoughprofessions.profession.workstation.WorkstationCategory;
 import com.mrbysco.justenoughprofessions.profession.workstation.WorkstationWrapper;
 import com.mrbysco.justenoughprofessions.util.LootTableUtil;
@@ -45,15 +47,19 @@ public class ProfessionPlugin implements IModPlugin {
 
 	public static final ResourceLocation WORKSTATION = new ResourceLocation(JustEnoughProfessions.MOD_ID, "workstation");
 	public static final ResourceLocation TRADE = new ResourceLocation(JustEnoughProfessions.MOD_ID, "trade");
+	public static final ResourceLocation WANDERING_TRADE = new ResourceLocation(JustEnoughProfessions.MOD_ID, "wandering_trade");
 	public static final ResourceLocation BARTER = new ResourceLocation(JustEnoughProfessions.MOD_ID, "barter");
 	public static final RecipeType<WorkstationWrapper> WORKSTATION_TYPE = RecipeType.create(JustEnoughProfessions.MOD_ID, "workstation", WorkstationWrapper.class);
 	public static final RecipeType<TradeWrapper> TRADE_TYPE = RecipeType.create(JustEnoughProfessions.MOD_ID, "trade", TradeWrapper.class);
+	public static final RecipeType<WanderingTradeWrapper> WANDERING_TRADE_TYPE = RecipeType.create(JustEnoughProfessions.MOD_ID, "wandering_trade", WanderingTradeWrapper.class);
 	public static final RecipeType<BarterWrapper> BARTER_TYPE = RecipeType.create(JustEnoughProfessions.MOD_ID, "barter", BarterWrapper.class);
 
 	@Nullable
 	private IRecipeCategory<WorkstationWrapper> workstationCategory;
 	@Nullable
 	private IRecipeCategory<TradeWrapper> tradeCategory;
+	@Nullable
+	private IRecipeCategory<WanderingTradeWrapper> wanderingTradeCategory;
 	@Nullable
 	private IRecipeCategory<BarterWrapper> barterCategory;
 
@@ -69,6 +75,7 @@ public class ProfessionPlugin implements IModPlugin {
 		registration.addRecipeCategories(
 				workstationCategory = new WorkstationCategory(guiHelper),
 				tradeCategory = new TradeCategory(guiHelper),
+				wanderingTradeCategory = new WanderingTradeCategory<>(guiHelper),
 				barterCategory = new BarterCategory<>(guiHelper));
 	}
 
@@ -78,6 +85,7 @@ public class ProfessionPlugin implements IModPlugin {
 		registration.addRecipeCatalyst(new ItemStack(Items.EMERALD), TRADE_TYPE);
 		registration.addRecipeCatalyst(new ItemStack(Items.VILLAGER_SPAWN_EGG), WORKSTATION_TYPE);
 		registration.addRecipeCatalyst(new ItemStack(Items.VILLAGER_SPAWN_EGG), TRADE_TYPE);
+		registration.addRecipeCatalyst(new ItemStack(Items.WANDERING_TRADER_SPAWN_EGG), WANDERING_TRADE_TYPE);
 		registration.addRecipeCatalyst(new ItemStack(Items.GOLD_INGOT), BARTER_TYPE);
 		registration.addRecipeCatalyst(new ItemStack(Items.PIGLIN_SPAWN_EGG), BARTER_TYPE);
 	}
@@ -86,10 +94,12 @@ public class ProfessionPlugin implements IModPlugin {
 	public void registerRecipes(IRecipeRegistration registration) {
 		ErrorUtil.checkNotNull(WORKSTATION_TYPE, "workstationType");
 		ErrorUtil.checkNotNull(TRADE_TYPE, "tradeType");
+		ErrorUtil.checkNotNull(WANDERING_TRADE_TYPE, "wanderingTradeType");
 		ErrorUtil.checkNotNull(BARTER_TYPE, "barterType");
 
 		registration.addRecipes(WORKSTATION_TYPE, getWorkstations());
 		registration.addRecipes(TRADE_TYPE, getTrades());
+		registration.addRecipes(WANDERING_TRADE_TYPE, getWanderingTrades());
 		registration.addRecipes(BARTER_TYPE, getBarters());
 	}
 
@@ -133,6 +143,10 @@ public class ProfessionPlugin implements IModPlugin {
 			entries.add(new TradeWrapper(profession, itemListings));
 		}
 		return entries;
+	}
+
+	public List<WanderingTradeWrapper> getWanderingTrades() {
+		return List.of(new WanderingTradeWrapper(VillagerTrades.WANDERING_TRADER_TRADES));
 	}
 
 	public List<BarterWrapper> getBarters() {

@@ -23,7 +23,7 @@ public class TradeEntry extends AbstractProfession {
 
 	public void populateListings(Int2ObjectMap<VillagerTrades.ItemListing[]> listings) {
 		Villager villager = getVillagerEntity();
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < listings.size(); i++) {
 			int level = i + 1;
 			List<TradeListing> levelListings = new ArrayList<>();
 			VillagerTrades.ItemListing[] currentListings = listings.get(level);
