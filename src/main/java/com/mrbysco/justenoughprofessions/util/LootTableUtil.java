@@ -56,7 +56,7 @@ public class LootTableUtil {
 			return level.getServer().getLootTables();
 		}
 
-		if(lootTables != null) {
+		if (lootTables != null) {
 			return lootTables;
 		}
 
