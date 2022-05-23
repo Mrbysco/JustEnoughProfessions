@@ -34,11 +34,11 @@ public class WanderingTradeCategory<T extends IRecipeCategoryExtension> implemen
 	public WanderingTradeCategory(IGuiHelper guiHelper) {
 		this.background = guiHelper.createBlankDrawable(120, 100);
 
-		ResourceLocation iconLocation = new ResourceLocation(JustEnoughProfessions.MOD_ID, "textures/gui/profession_icon.png");
+		ResourceLocation iconLocation = new ResourceLocation(JustEnoughProfessions.MOD_ID, "textures/gui/trader_icon.png");
 		this.icon = guiHelper.createDrawable(iconLocation, 0, 0, 16, 16);
 
 		this.slotDrawable = guiHelper.getSlotDrawable();
-		this.title = new TranslatableComponent("justenoughprofessions.trades.title");
+		this.title = new TranslatableComponent("justenoughprofessions.trader.title");
 	}
 
 	@SuppressWarnings("removal")
