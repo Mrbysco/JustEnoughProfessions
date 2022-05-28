@@ -1,45 +1,42 @@
-package com.mrbysco.justenoughprofessions.profession;
+package com.mrbysco.justenoughprofessions.jei;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.client.Minecraft;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Function;
 
-public class AbstractProfession {
+public class ProfessionEntry {
 	private final VillagerProfession profession;
+	private final List<ItemStack> blockStacks;
 
-	public AbstractProfession(VillagerProfession profession) {
+	public ProfessionEntry(VillagerProfession profession, Int2ObjectMap<ItemStack> stacks) {
 		this.profession = profession;
+		this.blockStacks = new LinkedList<>();
+		addProfessionStacks(stacks);
 	}
 
-	public VillagerProfession profession() {
+	public void addProfessionStacks(Int2ObjectMap<ItemStack> stackList) {
+		for (int i = 0; i < stackList.size(); i++) {
+			this.blockStacks.add(stackList.get(i));
+		}
+	}
+
+	public VillagerProfession getProfession() {
 		return profession;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == this) return true;
-		if (obj == null || obj.getClass() != this.getClass()) return false;
-		var that = (AbstractProfession) obj;
-		return Objects.equals(this.profession, that.profession);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(profession);
-	}
-
-	@Override
-	public String toString() {
-		return "AbstractProfession[" +
-				"profession=" + profession + ']';
+	public List<ItemStack> getBlockStacks() {
+		return blockStacks;
 	}
 
 	@Nullable

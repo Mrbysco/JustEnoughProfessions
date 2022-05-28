@@ -1,29 +1,23 @@
-package com.mrbysco.justenoughprofessions.profession.workstation;
+package com.mrbysco.justenoughprofessions.jei;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mrbysco.justenoughprofessions.client.RenderHelper;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import com.mrbysco.justenoughprofessions.RenderHelper;
 import mezz.jei.api.recipe.category.extensions.IRecipeCategoryExtension;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-public class WorkstationWrapper implements IRecipeCategoryExtension {
-	private final WorkstationEntry entry;
+public class ProfessionWrapper implements IRecipeCategoryExtension {
+	private final ProfessionEntry entry;
 
-	public WorkstationWrapper(WorkstationEntry entry) {
+	public ProfessionWrapper(ProfessionEntry entry) {
 		this.entry = entry;
 	}
 
-	public WorkstationWrapper(VillagerProfession profession, Int2ObjectMap<ItemStack> stacks) {
-		this(new WorkstationEntry(profession, stacks));
-	}
-
 	public ResourceLocation getProfessionName() {
-		return entry.profession().getRegistryName();
+		return entry.getProfession().getRegistryName();
 	}
 
 	public List<ItemStack> getBlockStacks() {

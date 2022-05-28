@@ -1,9 +1,7 @@
-package com.mrbysco.justenoughprofessions.profession.workstation;
+package com.mrbysco.justenoughprofessions.jei;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mrbysco.justenoughprofessions.JustEnoughProfessions;
-import com.mrbysco.justenoughprofessions.ProfessionPlugin;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
@@ -19,40 +17,37 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
-public class WorkstationCategory<T extends IRecipeCategoryExtension> implements IRecipeCategory<WorkstationWrapper> {
+public class ProfessionCategory<T extends IRecipeCategoryExtension> implements IRecipeCategory<ProfessionWrapper> {
+	public static final ResourceLocation UID = new ResourceLocation(JustEnoughProfessions.MOD_ID, "professions");
+
 	private final IDrawableStatic background;
-	private final IDrawable icon;
+	private final IDrawableStatic icon;
 	private final IDrawableStatic slotDrawable;
-	private final TranslatableComponent title;
 
-	public WorkstationCategory(IGuiHelper guiHelper) {
+	public ProfessionCategory(IGuiHelper guiHelper) {
 		ResourceLocation location = new ResourceLocation(JustEnoughProfessions.MOD_ID, "textures/gui/professions.png");
 		this.background = guiHelper.drawableBuilder(location, 0, 0, 72, 62).addPadding(1, 0, 0, 50).build();
 
-		this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(Items.LECTERN));
+		ResourceLocation iconLocation = new ResourceLocation(JustEnoughProfessions.MOD_ID, "textures/gui/profession_icon.png");
+		this.icon = guiHelper.createDrawable(iconLocation, 0, 0, 16, 16);
 
 		this.slotDrawable = guiHelper.getSlotDrawable();
-		this.title = new TranslatableComponent("justenoughprofessions.workstations.title");
 	}
 
-	@SuppressWarnings("removal")
 	@Override
 	public ResourceLocation getUid() {
-		return ProfessionPlugin.WORKSTATION;
+		return UID;
 	}
 
-	@SuppressWarnings("removal")
 	@Override
-	public Class<? extends WorkstationWrapper> getRecipeClass() {
-		return WorkstationWrapper.class;
+	public Class<? extends ProfessionWrapper> getRecipeClass() {
+		return ProfessionWrapper.class;
 	}
 
 	@Override
 	public Component getTitle() {
-		return this.title;
+		return new TranslatableComponent("justenoughprofessions.professions.title");
 	}
 
 	@Override
@@ -65,23 +60,23 @@ public class WorkstationCategory<T extends IRecipeCategoryExtension> implements 
 		return icon;
 	}
 
-	@Override
-	public void setRecipe(IRecipeLayoutBuilder builder, WorkstationWrapper workstationWrapper, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 76, 23).addItemStacks(workstationWrapper.getBlockStacks());
-	}
+    @Override
+    public void setRecipe(IRecipeLayoutBuilder builder, ProfessionWrapper recipe, IFocusGroup focuses) {
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 76, 23).addItemStacks(recipe.getBlockStacks());
+    }
 
 	@Override
-	public void draw(WorkstationWrapper workstationWrapper, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
-		// Draw Slots
+	public void draw(ProfessionWrapper professionWrapper, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
+		// Draw Drops
 		this.slotDrawable.draw(poseStack, 75, 22);
 
 		// Draw entity
-		workstationWrapper.drawInfo(getBackground().getWidth(), getBackground().getHeight(), poseStack, mouseX, mouseY);
+		professionWrapper.drawInfo(getBackground().getWidth(), getBackground().getHeight(), poseStack, mouseX, mouseY);
 		// Draw entity name
 		poseStack.pushPose();
 		poseStack.translate(1, 0, 0);
 		Font font = Minecraft.getInstance().font;
-		String text = Screen.hasShiftDown() ? workstationWrapper.getProfessionName().toString() : workstationWrapper.getProfessionName().getPath();
+		String text = Screen.hasShiftDown() ? professionWrapper.getProfessionName().toString() : professionWrapper.getProfessionName().getPath();
 		if (font.width(text) > 122) {
 			poseStack.scale(0.75F, 0.75F, 0.75F);
 		}
