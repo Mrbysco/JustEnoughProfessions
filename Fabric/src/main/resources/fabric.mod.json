@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "justenoughprofessions",
+  "version": "${version}",
+  "name": "Just Enough Professions (JEP)",
+  "description": "Adds info about professions to JEI",
+  "authors": [
+	"Mrbysco",
+	"ShyNieke"
+  ],
+  "contact": {
+	"homepage": "https://www.curseforge.com/minecraft/mc-mods/just-enough-professions-jep",
+	"sources": "https://github.com/Mrbysco/JustEnoughProfessions",
+	"issues": "https://github.com/Mrbysco/JustEnoughProfessions/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/modid/icon.png",
+  "environment": "*",
+  "entrypoints": {
+	"client": [
+	  "com.mrbysco.justenoughprofessions.JustEnoughProfessionsFabric"
+	],
+	"jei_mod_plugin": [
+	  "com.mrbysco.justenoughprofessions.FabricProfessionPlugin"
+	]
+  },
+  "mixins": [
+	"justenoughprofessions.fabric.mixins.json"
+  ],
+  "depends": {
+	"fabricloader": ">=0.14",
+	"fabric": "*",
+	"minecraft": "1.19.x",
+	"java": ">=17",
+	"jei": ">=11.0.0.203"
+  },
+  "suggests": {
+	"another-mod": "*"
+  }
+}
+  
