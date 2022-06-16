@@ -2,6 +2,7 @@ package com.mrbysco.justenoughprofessions.jei;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mrbysco.justenoughprofessions.JustEnoughProfessions;
+import com.mrbysco.justenoughprofessions.ProfessionPlugin;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
@@ -9,17 +10,15 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import mezz.jei.api.recipe.category.extensions.IRecipeCategoryExtension;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 
-public class ProfessionCategory<T extends IRecipeCategoryExtension> implements IRecipeCategory<ProfessionWrapper> {
-	public static final ResourceLocation UID = new ResourceLocation(JustEnoughProfessions.MOD_ID, "professions");
+public class ProfessionCategory implements IRecipeCategory<ProfessionWrapper> {
 
 	private final IDrawableStatic background;
 	private final IDrawableStatic icon;
@@ -36,18 +35,13 @@ public class ProfessionCategory<T extends IRecipeCategoryExtension> implements I
 	}
 
 	@Override
-	public ResourceLocation getUid() {
-		return UID;
-	}
-
-	@Override
-	public Class<? extends ProfessionWrapper> getRecipeClass() {
-		return ProfessionWrapper.class;
+	public RecipeType<ProfessionWrapper> getRecipeType() {
+		return ProfessionPlugin.PROFESSION_TYPE;
 	}
 
 	@Override
 	public Component getTitle() {
-		return new TranslatableComponent("justenoughprofessions.professions.title");
+		return Component.translatable("justenoughprofessions.professions.title");
 	}
 
 	@Override
@@ -60,10 +54,10 @@ public class ProfessionCategory<T extends IRecipeCategoryExtension> implements I
 		return icon;
 	}
 
-    @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, ProfessionWrapper recipe, IFocusGroup focuses) {
+	@Override
+	public void setRecipe(IRecipeLayoutBuilder builder, ProfessionWrapper recipe, IFocusGroup focuses) {
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 76, 23).addItemStacks(recipe.getBlockStacks());
-    }
+	}
 
 	@Override
 	public void draw(ProfessionWrapper professionWrapper, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {

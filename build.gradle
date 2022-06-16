@@ -1,18 +1,7 @@
-buildscript {
-    repositories {
-        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
-        maven { url = 'https://maven.minecraftforge.net' }
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-    }
-}
-//Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 plugins {
     id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '5.+'
 }
-apply plugin: 'net.minecraftforge.gradle'
 
 version = "${version}"
 group = 'com.mrbysco.justenoughprofessions' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -96,12 +85,18 @@ repositories {
             includeGroup "mezz.jei"
         }
     }
+//    maven {
+//        // location of the maven that hosts Immersive Engineering files
+//        name = "TeamAcronymCoders"
+//        url = "https://maven.teamacronymcoders.com/"
+//        content {
+//            includeGroup "blusunrize.immersiveengineering"
+//        }
+//    }
     maven {
-        // location of the maven that hosts Immersive Engineering files
-        name = "TeamAcronymCoders"
-        url = "https://maven.teamacronymcoders.com/"
+        url "https://cursemaven.com"
         content {
-            includeGroup "blusunrize.immersiveengineering"
+            includeGroup "curse.maven"
         }
     }
 }
@@ -111,8 +106,11 @@ dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    implementation fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
-    implementation fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${mc_version}-${ie_version}")
+//    implementation fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
+    implementation fg.deobf("curse.maven:jei-238222:3834070")
+
+//    implementation fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
+//    implementation fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${mc_version}-${ie_version}")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

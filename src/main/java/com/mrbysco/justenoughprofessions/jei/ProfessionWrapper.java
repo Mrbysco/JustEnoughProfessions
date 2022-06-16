@@ -6,22 +6,18 @@ import mezz.jei.api.recipe.category.extensions.IRecipeCategoryExtension;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 
-public class ProfessionWrapper implements IRecipeCategoryExtension {
-	private final ProfessionEntry entry;
-
-	public ProfessionWrapper(ProfessionEntry entry) {
-		this.entry = entry;
-	}
+public record ProfessionWrapper(ProfessionEntry entry) implements IRecipeCategoryExtension {
 
 	public ResourceLocation getProfessionName() {
-		return entry.getProfession().getRegistryName();
+		return ForgeRegistries.PROFESSIONS.getKey(entry.profession());
 	}
 
 	public List<ItemStack> getBlockStacks() {
-		return this.entry.getBlockStacks();
+		return this.entry.blockStacks();
 	}
 
 	@Override

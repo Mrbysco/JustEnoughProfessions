@@ -4,7 +4,7 @@ import mezz.jei.api.runtime.IRecipesGui;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -30,7 +30,7 @@ public class CompatibilityHelper {
 		if (Minecraft.getInstance().screen instanceof IRecipesGui) {
 			ItemStack stack = event.getItemStack();
 			if (stack.hasTag() && stack.getTag().getBoolean("JEP_outfitter")) {
-				event.getToolTip().add(new TextComponent("Needs to have a shader applied").withStyle(ChatFormatting.GOLD));
+				event.getToolTip().add(Component.literal("Needs to have a shader applied").withStyle(ChatFormatting.GOLD));
 			}
 		}
 	}
