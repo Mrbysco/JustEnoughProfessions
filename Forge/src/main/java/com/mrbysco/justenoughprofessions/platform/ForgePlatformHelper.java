@@ -13,12 +13,12 @@ public class ForgePlatformHelper implements IPlatformHelper {
 
 	@Override
 	public ResourceLocation getEntityKey(EntityType entityType) {
-		return ForgeRegistries.ENTITIES.getKey(entityType);
+		return ForgeRegistries.ENTITY_TYPES.getKey(entityType);
 	}
 
 	@Override
 	public ResourceLocation getProfessionKey(VillagerProfession villagerProfession) {
-		return ForgeRegistries.PROFESSIONS.getKey(villagerProfession);
+		return ForgeRegistries.VILLAGER_PROFESSIONS.getKey(villagerProfession);
 	}
 
 	@Override
