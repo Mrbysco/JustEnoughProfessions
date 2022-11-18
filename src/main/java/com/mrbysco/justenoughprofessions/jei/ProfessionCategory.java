@@ -60,10 +60,10 @@ public class ProfessionCategory<T extends IRecipeCategoryExtension> implements I
 		return icon;
 	}
 
-    @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, ProfessionWrapper recipe, IFocusGroup focuses) {
+	@Override
+	public void setRecipe(IRecipeLayoutBuilder builder, ProfessionWrapper recipe, IFocusGroup focuses) {
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 76, 23).addItemStacks(recipe.getBlockStacks());
-    }
+	}
 
 	@Override
 	public void draw(ProfessionWrapper professionWrapper, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {

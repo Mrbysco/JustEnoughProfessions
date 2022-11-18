@@ -30,6 +30,8 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             // Recommended logging data for a userdev environment
             // property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
@@ -47,6 +49,8 @@ minecraft {
         }
         server {
             workingDirectory project.file('run')
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             // Recommended logging data for a userdev environment
             // property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
@@ -64,6 +68,8 @@ minecraft {
         }
         data {
             workingDirectory project.file('run')
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             // Recommended logging data for a userdev environment
             // property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
@@ -98,10 +104,16 @@ repositories {
     }
     maven {
         // location of the maven that hosts Immersive Engineering files
-        name = "TeamAcronymCoders"
-        url = "https://maven.teamacronymcoders.com/"
+        name = "BlameJared Maven"
+        url = 'https://maven.blamejared.com'
         content {
             includeGroup "blusunrize.immersiveengineering"
+        }
+    }
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
         }
     }
 }
@@ -113,6 +125,9 @@ dependencies {
 
     implementation fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
     implementation fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${mc_version}-${ie_version}")
+
+    runtimeOnly fg.deobf("curse.maven:domesticationInnovation-591149:3826903")
+    runtimeOnly fg.deobf("curse.maven:citadel-331936:3783096")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

@@ -11,13 +11,13 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Collection;
@@ -54,7 +54,7 @@ public class ProfessionPlugin implements IModPlugin {
 			List<ResourceLocation> knownItems = new LinkedList<>();
 			PoiType poiType = profession.getJobPoiType();
 
-			for (BlockState state : poiType.matchingStates) {
+			for (BlockState state : poiType.getBlockStates()) {
 				Block block = ForgeRegistries.BLOCKS.getValue(state.getBlock().getRegistryName());
 				if (block != null) {
 					ItemStack stack = CompatibilityHelper.compatibilityCheck(new ItemStack(block), profession.getRegistryName());
