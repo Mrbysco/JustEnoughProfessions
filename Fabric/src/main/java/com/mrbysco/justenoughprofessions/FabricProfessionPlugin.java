@@ -10,7 +10,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
@@ -48,20 +48,20 @@ public class FabricProfessionPlugin implements IModPlugin {
 	@Override
 	public void registerRecipes(IRecipeRegistration registration) {
 		List<ProfessionWrapper> entries = new LinkedList<>();
-		for (VillagerProfession profession : Registry.VILLAGER_PROFESSION.stream().toList()) {
+		for (VillagerProfession profession : BuiltInRegistries.VILLAGER_PROFESSION.stream().toList()) {
 			if (profession == VillagerProfession.NONE) {
 				continue;
 			}
-			for (PoiType poiType : Registry.POINT_OF_INTEREST_TYPE.stream().toList()) {
-				ResourceKey<PoiType> typeResourceKey = Registry.POINT_OF_INTEREST_TYPE.getResourceKey(poiType).orElse(null);
-				if (typeResourceKey != null && profession.acquirableJobSite().test(Registry.POINT_OF_INTEREST_TYPE.getHolder(typeResourceKey).orElse(null))) {
+			for (PoiType poiType : BuiltInRegistries.POINT_OF_INTEREST_TYPE.stream().toList()) {
+				ResourceKey<PoiType> typeResourceKey = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getResourceKey(poiType).orElse(null);
+				if (typeResourceKey != null && profession.acquirableJobSite().test(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getHolder(typeResourceKey).orElse(null))) {
 					List<ItemStack> stacks = new LinkedList<>();
 					List<ResourceLocation> knownItems = new LinkedList<>();
 					for (BlockState state : poiType.matchingStates()) {
-						Block block = Registry.BLOCK.get(Registry.BLOCK.getKey(state.getBlock()));
+						Block block = BuiltInRegistries.BLOCK.get(BuiltInRegistries.BLOCK.getKey(state.getBlock()));
 						if (block != null) {
-							ItemStack stack = CompatibilityHelper.compatibilityCheck(new ItemStack(block), Registry.VILLAGER_PROFESSION.getKey(profession));
-							ResourceLocation location = Registry.ITEM.getKey(stack.getItem());
+							ItemStack stack = CompatibilityHelper.compatibilityCheck(new ItemStack(block), BuiltInRegistries.VILLAGER_PROFESSION.getKey(profession));
+							ResourceLocation location = BuiltInRegistries.ITEM.getKey(stack.getItem());
 							if (!stack.isEmpty() && !knownItems.contains(location)) {
 								stacks.add(stack);
 								knownItems.add(location);

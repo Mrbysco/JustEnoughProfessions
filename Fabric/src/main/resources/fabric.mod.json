@@ -24,15 +24,12 @@
 	  "com.mrbysco.justenoughprofessions.FabricProfessionPlugin"
 	]
   },
-  "mixins": [
-	"justenoughprofessions.fabric.mixins.json"
-  ],
   "depends": {
 	"fabricloader": ">=0.14",
 	"fabric": "*",
-	"minecraft": "1.19.x",
+	"minecraft": ">=1.19.3",
 	"java": ">=17",
-	"jei": ">=11.0.0.203"
+	"jei": ">=12.0.2.2"
   },
   "suggests": {
 	"another-mod": "*"
