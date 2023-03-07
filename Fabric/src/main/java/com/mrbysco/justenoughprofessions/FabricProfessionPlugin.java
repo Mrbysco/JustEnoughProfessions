@@ -52,11 +52,11 @@ public class FabricProfessionPlugin implements IModPlugin {
 			if (profession == VillagerProfession.NONE) {
 				continue;
 			}
+			List<ItemStack> stacks = new LinkedList<>();
+			List<ResourceLocation> knownItems = new LinkedList<>();
 			for (PoiType poiType : Registry.POINT_OF_INTEREST_TYPE.stream().toList()) {
 				ResourceKey<PoiType> typeResourceKey = Registry.POINT_OF_INTEREST_TYPE.getResourceKey(poiType).orElse(null);
 				if (typeResourceKey != null && profession.acquirableJobSite().test(Registry.POINT_OF_INTEREST_TYPE.getHolder(typeResourceKey).orElse(null))) {
-					List<ItemStack> stacks = new LinkedList<>();
-					List<ResourceLocation> knownItems = new LinkedList<>();
 					for (BlockState state : poiType.matchingStates()) {
 						Block block = Registry.BLOCK.get(Registry.BLOCK.getKey(state.getBlock()));
 						if (block != null) {
@@ -68,10 +68,10 @@ public class FabricProfessionPlugin implements IModPlugin {
 							}
 						}
 					}
-					if (!stacks.isEmpty()) {
-						entries.add(new ProfessionWrapper(new ProfessionEntry(profession, stacks)));
-					}
 				}
+			}
+			if (!stacks.isEmpty()) {
+				entries.add(new ProfessionWrapper(new ProfessionEntry(profession, stacks)));
 			}
 		}
 		registration.addRecipes(PROFESSION_TYPE, entries);

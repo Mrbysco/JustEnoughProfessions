@@ -51,10 +51,10 @@ public class ForgeProfessionPlugin implements IModPlugin {
 			if (profession == VillagerProfession.NONE) {
 				continue;
 			}
+			List<ItemStack> stacks = new LinkedList<>();
+			List<ResourceLocation> knownItems = new LinkedList<>();
 			for (PoiType poiType : ForgeRegistries.POI_TYPES.getValues()) {
 				if (profession.acquirableJobSite().test(ForgeRegistries.POI_TYPES.getHolder(poiType).orElse(null))) {
-					List<ItemStack> stacks = new LinkedList<>();
-					List<ResourceLocation> knownItems = new LinkedList<>();
 					for (BlockState state : poiType.matchingStates()) {
 						Block block = ForgeRegistries.BLOCKS.getValue(ForgeRegistries.BLOCKS.getKey(state.getBlock()));
 						if (block != null) {
@@ -66,10 +66,10 @@ public class ForgeProfessionPlugin implements IModPlugin {
 							}
 						}
 					}
-					if (!stacks.isEmpty()) {
-						entries.add(new ProfessionWrapper(new ProfessionEntry(profession, stacks)));
-					}
 				}
+			}
+			if (!stacks.isEmpty()) {
+				entries.add(new ProfessionWrapper(new ProfessionEntry(profession, stacks)));
 			}
 		}
 		registration.addRecipes(PROFESSION_TYPE, entries);
