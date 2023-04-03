@@ -3,6 +3,8 @@ plugins {
     id 'eclipse'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'com.matthewprenger.cursegradle' version '1.4.0'
+    id 'com.modrinth.minotaur' version "2.+"
 }
 
 archivesBaseName = "${mod_name}-forge-${minecraft_version}"
@@ -94,6 +96,45 @@ publishing {
                     password = "${System.getenv().SAP_SECRET}"
                 }
             }
+        }
+    }
+}
+
+if (System.getenv().CURSEFORGE_KEY) {
+    curseforge {
+        apiKey = System.getenv().CURSEFORGE_KEY
+        project {
+            id = project.curseforge_id
+            releaseType = "release"
+            addGameVersion "Forge"
+            addGameVersion "${minecraft_version}"
+            addGameVersion "Java 17"
+            mainArtifact(jar)
+            changelog = file("$project.rootDir/changelog.md")
+            changelogType = 'markdown'
+
+            relations {
+                requiredDependency "jei"
+            }
+        }
+    }
+}
+
+if (System.getenv().MODRINTH_KEY) {
+    String fileContents = file("$project.rootDir/changelog.md").text
+    modrinth {
+        token = System.getenv().MODRINTH_KEY
+        projectId = project.modrinth_id
+        versionType = "release"
+        versionName = "${mod_name} ${minecraft_version}"
+        versionNumber = project.version
+        uploadFile = jar
+        changelog = fileContents
+        gameVersions = ["${minecraft_version}"]
+        loaders = ["forge"]
+
+        dependencies {
+            required.project "jei"
         }
     }
 }
