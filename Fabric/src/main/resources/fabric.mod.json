@@ -25,11 +25,11 @@
 	]
   },
   "depends": {
-	"fabricloader": ">=0.14",
+	"fabricloader": ">=0.14.19",
 	"fabric": "*",
-	"minecraft": ">=1.19.3",
+	"minecraft": ">=1.19.4",
 	"java": ">=17",
-	"jei": ">=12.0.2.2"
+	"jei": ">=13.0.0.1"
   },
   "suggests": {
 	"another-mod": "*"
