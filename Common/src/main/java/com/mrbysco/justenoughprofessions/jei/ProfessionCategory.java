@@ -14,6 +14,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -58,15 +59,15 @@ public class ProfessionCategory implements IRecipeCategory<ProfessionWrapper> {
 	public void setRecipe(IRecipeLayoutBuilder builder, ProfessionWrapper recipe, IFocusGroup focuses) {
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 76, 23).addItemStacks(recipe.getBlockStacks());
 	}
-
 	@Override
-	public void draw(ProfessionWrapper professionWrapper, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
+	public void draw(ProfessionWrapper professionWrapper, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
 		// Draw Drops
-		this.slotDrawable.draw(poseStack, 75, 22);
+		this.slotDrawable.draw(guiGraphics, 75, 22);
 
 		// Draw entity
-		professionWrapper.drawInfo(getBackground().getWidth(), getBackground().getHeight(), poseStack, mouseX, mouseY);
+		professionWrapper.drawInfo(getBackground().getWidth(), getBackground().getHeight(), guiGraphics, mouseX, mouseY);
 		// Draw entity name
+		PoseStack poseStack = guiGraphics.pose();
 		poseStack.pushPose();
 		poseStack.translate(1, 0, 0);
 		Font font = Minecraft.getInstance().font;
@@ -74,7 +75,7 @@ public class ProfessionCategory implements IRecipeCategory<ProfessionWrapper> {
 		if (font.width(text) > 122) {
 			poseStack.scale(0.75F, 0.75F, 0.75F);
 		}
-		font.draw(poseStack, text, 0, 0, 8);
+		guiGraphics.drawString(font, text, 0, 0, 8, false);
 		poseStack.popPose();
 	}
 }

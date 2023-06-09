@@ -5,34 +5,30 @@
   "name": "Just Enough Professions (JEP)",
   "description": "Adds info about professions to JEI",
   "authors": [
-	"Mrbysco",
-	"ShyNieke"
+    "Mrbysco",
+    "ShyNieke"
   ],
   "contact": {
-	"homepage": "https://www.curseforge.com/minecraft/mc-mods/just-enough-professions-jep",
-	"sources": "https://github.com/Mrbysco/JustEnoughProfessions",
-	"issues": "https://github.com/Mrbysco/JustEnoughProfessions/issues"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/just-enough-professions-jep",
+    "sources": "https://github.com/Mrbysco/JustEnoughProfessions",
+    "issues": "https://github.com/Mrbysco/JustEnoughProfessions/issues"
   },
   "license": "MIT",
-  "icon": "assets/modid/icon.png",
   "environment": "*",
   "entrypoints": {
-	"client": [
-	  "com.mrbysco.justenoughprofessions.JustEnoughProfessionsFabric"
-	],
-	"jei_mod_plugin": [
-	  "com.mrbysco.justenoughprofessions.FabricProfessionPlugin"
-	]
+    "client": [
+      "com.mrbysco.justenoughprofessions.JustEnoughProfessionsFabric"
+    ],
+    "jei_mod_plugin": [
+      "com.mrbysco.justenoughprofessions.FabricProfessionPlugin"
+    ]
   },
   "depends": {
-	"fabricloader": ">=0.14",
-	"fabric": "*",
-	"minecraft": ">=1.19.3",
-	"java": ">=17",
-	"jei": ">=12.0.2.2"
-  },
-  "suggests": {
-	"another-mod": "*"
+    "fabricloader": ">=0.14",
+    "fabric": "*",
+    "minecraft": "~1.20",
+    "java": ">=17",
+    "jei": ">=14.0.0.4"
   }
 }
   

@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[44,)"
+loaderVersion="[46,)"
 issueTrackerURL="https://github.com/Mrbysco/JustEnoughProfessions/issues"
 license="MIT"
 
@@ -16,18 +16,18 @@ Adds info about professions to JEI
 [[dependencies.justenoughprofessions]]
 modId="jei"
 mandatory=true
-versionRange="[12.0.2.2,)"
+versionRange="[14.0.0.4,)"
 ordering="NONE"
 side="BOTH"
 [[dependencies.justenoughprofessions]]
 modId="forge"
 mandatory=true
-versionRange="[41.1.0,)"
+versionRange="[46.0.2,)"
 ordering="NONE"
 side="BOTH"
 [[dependencies.justenoughprofessions]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.19.3,1.20)"
+versionRange="[1.20,1.21)"
 ordering="NONE"
 side="BOTH"
