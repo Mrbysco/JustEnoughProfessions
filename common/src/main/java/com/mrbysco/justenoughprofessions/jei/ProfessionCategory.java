@@ -65,7 +65,7 @@ public class ProfessionCategory implements IRecipeCategory<ProfessionWrapper> {
 		this.slotDrawable.draw(guiGraphics, 75, 22);
 
 		// Draw entity
-		professionWrapper.drawInfo(getBackground().getWidth(), getBackground().getHeight(), guiGraphics, mouseX, mouseY);
+		professionWrapper.drawInfo(professionWrapper, getBackground().getWidth(), getBackground().getHeight(), guiGraphics, mouseX, mouseY);
 		// Draw entity name
 		PoseStack poseStack = guiGraphics.pose();
 		poseStack.pushPose();

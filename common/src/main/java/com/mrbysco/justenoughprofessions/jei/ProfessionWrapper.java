@@ -1,6 +1,5 @@
 package com.mrbysco.justenoughprofessions.jei;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mrbysco.justenoughprofessions.RenderHelper;
 import com.mrbysco.justenoughprofessions.platform.Services;
 import mezz.jei.api.recipe.category.extensions.IRecipeCategoryExtension;
@@ -11,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-public record ProfessionWrapper(ProfessionEntry entry) implements IRecipeCategoryExtension {
+public record ProfessionWrapper(ProfessionEntry entry) implements IRecipeCategoryExtension<ProfessionWrapper> {
 
 	public ResourceLocation getProfessionName() {
 		return Services.PLATFORM.getProfessionKey(entry.profession());
@@ -22,7 +21,7 @@ public record ProfessionWrapper(ProfessionEntry entry) implements IRecipeCategor
 	}
 
 	@Override
-	public void drawInfo(int recipeWidth, int recipeHeight, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+	public void drawInfo(ProfessionWrapper recipe, int recipeWidth, int recipeHeight, GuiGraphics guiGraphics, double mouseX, double mouseY) {
 		Villager entityVillager = entry.getVillagerEntity();
 		if (entityVillager != null) {
 			RenderHelper.renderEntity(guiGraphics, 22, 62, 25.0F,
