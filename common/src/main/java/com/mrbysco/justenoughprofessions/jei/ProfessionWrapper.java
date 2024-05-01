@@ -1,6 +1,5 @@
 package com.mrbysco.justenoughprofessions.jei;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mrbysco.justenoughprofessions.RenderHelper;
 import com.mrbysco.justenoughprofessions.platform.Services;
 import mezz.jei.api.recipe.category.extensions.IRecipeCategoryExtension;
