@@ -1,6 +1,6 @@
 {
     "pack": {
-        "description": "${mod_name} resources",
-        "pack_format": 18
+        "description": "Just Enough Professions resources",
+        "pack_format": 32
     }
 }

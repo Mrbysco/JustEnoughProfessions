@@ -14,7 +14,7 @@ public interface IPlatformHelper {
 	 * @param entityType The entity type
 	 * @return The registry name
 	 */
-	ResourceLocation getEntityKey(EntityType entityType);
+	ResourceLocation getEntityKey(EntityType<?> entityType);
 
 	/**
 	 * Get the registry name of the profession

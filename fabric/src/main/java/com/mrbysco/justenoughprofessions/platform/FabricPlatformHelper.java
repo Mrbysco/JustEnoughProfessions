@@ -12,7 +12,7 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 public class FabricPlatformHelper implements IPlatformHelper {
 
 	@Override
-	public ResourceLocation getEntityKey(EntityType entityType) {
+	public ResourceLocation getEntityKey(EntityType<?> entityType) {
 		return BuiltInRegistries.ENTITY_TYPE.getKey(entityType);
 	}
 
