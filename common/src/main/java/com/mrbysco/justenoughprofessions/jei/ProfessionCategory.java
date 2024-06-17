@@ -26,10 +26,10 @@ public class ProfessionCategory implements IRecipeCategory<ProfessionWrapper> {
 	private final IDrawableStatic slotDrawable;
 
 	public ProfessionCategory(IGuiHelper guiHelper) {
-		ResourceLocation location = new ResourceLocation(Constants.MOD_ID, "textures/gui/professions.png");
+		ResourceLocation location = Constants.modLoc("textures/gui/professions.png");
 		this.background = guiHelper.drawableBuilder(location, 0, 0, 72, 62).addPadding(1, 0, 0, 50).build();
 
-		ResourceLocation iconLocation = new ResourceLocation(Constants.MOD_ID, "textures/gui/profession_icon.png");
+		ResourceLocation iconLocation = Constants.modLoc("textures/gui/profession_icon.png");
 		this.icon = guiHelper.createDrawable(iconLocation, 0, 0, 16, 16);
 
 		this.slotDrawable = guiHelper.getSlotDrawable();

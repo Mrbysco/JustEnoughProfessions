@@ -25,7 +25,7 @@ import java.util.List;
 
 @JeiPlugin
 public class FabricProfessionPlugin implements IModPlugin {
-	private static final ResourceLocation UID = new ResourceLocation(Constants.MOD_ID, "jei_plugin");
+	private static final ResourceLocation UID = Constants.modLoc("jei_plugin");
 
 	public static final RecipeType<ProfessionWrapper> PROFESSION_TYPE = RecipeType.create(Constants.MOD_ID, "professions", ProfessionWrapper.class);
 
