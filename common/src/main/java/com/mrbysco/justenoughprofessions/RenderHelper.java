@@ -8,11 +8,22 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.npc.Villager;
 import org.joml.Quaternionf;
 
 public class RenderHelper {
-	public static void renderEntity(GuiGraphics guiGraphics, int x, int y, double scale, double yaw, double pitch, LivingEntity livingEntity) {
-		if (livingEntity.level() == null) return;
+	/**
+	 * Render the Villager entity on the screen
+	 * @param guiGraphics The GuiGraphics instance
+	 * @param x The x position
+	 * @param y The y position
+	 * @param scale The scale of the entity
+	 * @param yaw The yaw of the entity
+	 * @param pitch The pitch of the entity
+	 * @param villager The Villager entity to render
+	 */
+	public static void renderVillager(GuiGraphics guiGraphics, int x, int y, double scale, double yaw, double pitch, Villager villager) {
+		if (villager.level() == null) return;
 		PoseStack poseStack = guiGraphics.pose();
 		poseStack.pushPose();
 		poseStack.translate((float) x, (float) y, 50f);
@@ -21,18 +32,18 @@ public class RenderHelper {
 		// Rotate entity
 		poseStack.mulPose(Axis.XP.rotationDegrees(((float) Math.atan((-40 / 40.0F))) * 10.0F));
 
-		livingEntity.yBodyRot = (float) -(yaw / 40.F) * 20.0F;
-		livingEntity.setYRot((float) -(yaw / 40.F) * 20.0F);
-		livingEntity.yHeadRot = livingEntity.getYRot();
-		livingEntity.yHeadRotO = livingEntity.getYRot();
+		villager.yBodyRot = (float) -(yaw / 40.F) * 20.0F;
+		villager.setYRot((float) -(yaw / 40.F) * 20.0F);
+		villager.yHeadRot = villager.getYRot();
+		villager.yHeadRotO = villager.getYRot();
 
-		poseStack.translate(0.0F, livingEntity.getVehicleAttachmentPoint(livingEntity).y(), 0.0F);
+		poseStack.translate(0.0F, villager.getVehicleAttachmentPoint(villager).y(), 0.0F);
 		EntityRenderDispatcher entityRenderDispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
 		entityRenderDispatcher.overrideCameraOrientation(new Quaternionf(0.0F, 0.0F, 0.0F, 1.0F));
 		entityRenderDispatcher.setRenderShadow(false);
 		final MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
 		RenderSystem.runAsFancy(() -> {
-			entityRenderDispatcher.render(livingEntity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, poseStack, bufferSource, 15728880);
+			entityRenderDispatcher.render(villager, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, poseStack, bufferSource, 15728880);
 		});
 		bufferSource.endBatch();
 		entityRenderDispatcher.setRenderShadow(true);

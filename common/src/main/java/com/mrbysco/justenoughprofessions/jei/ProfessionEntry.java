@@ -14,8 +14,17 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
+/**
+ * A record to hold the profession and the block stacks for the profession
+ * @param profession The profession
+ * @param blockStacks The workstation blocks for the profession
+ */
 public record ProfessionEntry(VillagerProfession profession, List<ItemStack> blockStacks) {
 
+	/**
+	 * Get the villager entity for the profession
+	 * @return The Villager entity
+	 */
 	@Nullable
 	public Villager getVillagerEntity() {
 		CompoundTag nbt = new CompoundTag();

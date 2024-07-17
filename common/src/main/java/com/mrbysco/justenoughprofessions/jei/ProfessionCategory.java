@@ -19,6 +19,9 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
+/**
+ * The JEI recipe category for the professions
+ */
 public class ProfessionCategory implements IRecipeCategory<ProfessionWrapper> {
 
 	private final IDrawableStatic background;
