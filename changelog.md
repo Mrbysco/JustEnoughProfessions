@@ -1,1 +1,1 @@
-* Initial update to 1.21
+* Build against newer version of JEI (Requires at least JEI `19.3.1.22` and above)
