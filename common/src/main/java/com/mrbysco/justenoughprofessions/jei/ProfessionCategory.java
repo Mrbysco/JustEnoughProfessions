@@ -74,7 +74,7 @@ public class ProfessionCategory implements IRecipeCategory<ProfessionWrapper> {
 		poseStack.pushPose();
 		poseStack.translate(1, 0, 0);
 		Font font = Minecraft.getInstance().font;
-		String text = Screen.hasShiftDown() ? professionWrapper.getProfessionName().toString() : professionWrapper.getProfessionName().getPath();
+		String text = Screen.hasShiftDown() ? professionWrapper.getProfessionName().toString() : professionWrapper.getDisplayName().getString();
 		if (font.width(text) > 122) {
 			poseStack.scale(0.75F, 0.75F, 0.75F);
 		}

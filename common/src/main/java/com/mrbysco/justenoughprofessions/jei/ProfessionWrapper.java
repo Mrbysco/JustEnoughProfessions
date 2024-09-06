@@ -4,6 +4,7 @@ import com.mrbysco.justenoughprofessions.RenderHelper;
 import com.mrbysco.justenoughprofessions.platform.Services;
 import mezz.jei.api.recipe.category.extensions.IRecipeCategoryExtension;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.ItemStack;
@@ -18,6 +19,18 @@ public record ProfessionWrapper(ProfessionEntry entry) implements IRecipeCategor
 	 */
 	public ResourceLocation getProfessionName() {
 		return Services.PLATFORM.getProfessionKey(entry.profession());
+	}
+
+	/**
+	 * Get the profession name for display.
+	 *
+	 * @return
+	 */
+	public Component getDisplayName() {
+		ResourceLocation professionKey = getProfessionName();
+		String languageKey = professionKey.toLanguageKey();
+		if (languageKey.startsWith("minecraft.")) languageKey = languageKey.replace("minecraft.", "");
+		return Component.translatable("entity.minecraft.villager." + languageKey);
 	}
 
 	/**
