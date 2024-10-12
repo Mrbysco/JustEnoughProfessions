@@ -2,11 +2,11 @@ package com.mrbysco.justenoughprofessions;
 
 import com.mrbysco.justenoughprofessions.platform.Services;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -20,8 +20,7 @@ public class VillagerCache {
 		if (cachedVillager == null) {
 			CompoundTag nbt = new CompoundTag();
 			nbt.putString("id", Objects.requireNonNull(Services.PLATFORM.getEntityKey(EntityType.VILLAGER)).toString());
-			Minecraft mc = Minecraft.getInstance();
-			Level level = mc.hasSingleplayerServer() && mc.getSingleplayerServer() != null ? mc.getSingleplayerServer().getAllLevels().iterator().next() : mc.level;
+			ClientLevel level = Minecraft.getInstance().level;
 			if (level != null) {
 				Villager villager = (Villager) EntityType.loadEntityRecursive(nbt, level, Function.identity());
 				if (villager != null) {
