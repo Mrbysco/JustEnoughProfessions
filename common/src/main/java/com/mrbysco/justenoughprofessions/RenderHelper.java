@@ -7,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.npc.Villager;
 import org.joml.Quaternionf;
 
@@ -36,6 +35,7 @@ public class RenderHelper {
 		villager.setYRot((float) -(yaw / 40.F) * 20.0F);
 		villager.yHeadRot = villager.getYRot();
 		villager.yHeadRotO = villager.getYRot();
+		villager.setXRot((float) -(pitch / 5.F));
 
 		poseStack.translate(0.0F, villager.getVehicleAttachmentPoint(villager).y(), 0.0F);
 		EntityRenderDispatcher entityRenderDispatcher = Minecraft.getInstance().getEntityRenderDispatcher();

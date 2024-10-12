@@ -47,7 +47,7 @@ public record ProfessionWrapper(ProfessionEntry entry) implements IRecipeCategor
 		if (entityVillager != null) {
 			RenderHelper.renderVillager(guiGraphics, 22, 62, 25.0F,
 					38 - mouseX,
-					80 - mouseY,
+					15 - mouseY,
 					entityVillager);
 		}
 	}
