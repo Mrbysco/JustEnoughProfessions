@@ -12,9 +12,21 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 import java.util.function.Function;
 
+/**
+ * This class is used to cache the villager entity used for rendering the villager profession
+ */
 public class VillagerCache {
+	/**
+	 * The cached villager entity
+	 */
 	private static Villager cachedVillager;
 
+	/**
+	 * Get a villager entity with a specific profession
+	 * If the entity is not cached, it will create a new one and cache it
+	 * @param profession The profession to set the villager to
+	 * @return The villager entity
+	 */
 	@Nullable
 	public static Villager getVillagerEntity(VillagerProfession profession) {
 		if (cachedVillager == null) {

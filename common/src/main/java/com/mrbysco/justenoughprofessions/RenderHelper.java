@@ -10,6 +10,9 @@ import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.world.entity.npc.Villager;
 import org.joml.Quaternionf;
 
+/**
+ * A helper class to render the Villager entity on the screen
+ */
 public class RenderHelper {
 	/**
 	 * Render the Villager entity on the screen
