@@ -47,4 +47,8 @@ public class VillagerCache {
 		return null;
 	}
 
+	public static void clearCache() {
+		cachedVillager = null;
+	}
+
 }
