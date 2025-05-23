@@ -6,7 +6,7 @@ import com.mrbysco.justenoughprofessions.jei.ProfessionEntry;
 import com.mrbysco.justenoughprofessions.jei.ProfessionWrapper;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
@@ -28,7 +28,7 @@ import java.util.Optional;
 public class NeoForgeProfessionPlugin implements IModPlugin {
 	private static final ResourceLocation UID = Constants.modLoc("jei_plugin");
 
-	public static final RecipeType<ProfessionWrapper> PROFESSION_TYPE = RecipeType.create(Constants.MOD_ID, "professions", ProfessionWrapper.class);
+	public static final IRecipeType<ProfessionWrapper> PROFESSION_TYPE = IRecipeType.create(Constants.MOD_ID, "professions", ProfessionWrapper.class);
 
 	@Override
 	public ResourceLocation getPluginUid() {
@@ -42,8 +42,8 @@ public class NeoForgeProfessionPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-		registration.addRecipeCatalyst(new ItemStack(Items.EMERALD), PROFESSION_TYPE);
-		registration.addRecipeCatalyst(new ItemStack(Items.VILLAGER_SPAWN_EGG), PROFESSION_TYPE);
+		registration.addCraftingStation(PROFESSION_TYPE, new ItemStack(Items.EMERALD));
+		registration.addCraftingStation(PROFESSION_TYPE, new ItemStack(Items.VILLAGER_SPAWN_EGG));
 	}
 
 	@Override
@@ -59,9 +59,9 @@ public class NeoForgeProfessionPlugin implements IModPlugin {
 			List<PoiType> types = BuiltInRegistries.POINT_OF_INTEREST_TYPE.stream().toList();
 			for (PoiType poiType : types) {
 				Optional<ResourceKey<PoiType>> poiKey = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getResourceKey(poiType);
-				if (poiKey.isPresent() && profession.acquirableJobSite().test(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getHolder(poiKey.get()).orElse(null))) {
+				if (poiKey.isPresent() && profession.acquirableJobSite().test(BuiltInRegistries.POINT_OF_INTEREST_TYPE.get(poiKey.get()).orElse(null))) {
 					for (BlockState state : poiType.matchingStates()) {
-						Block block = BuiltInRegistries.BLOCK.get(BuiltInRegistries.BLOCK.getKey(state.getBlock()));
+						Block block = state.getBlock();
 						if (block != null) {
 							ItemStack stack = CompatibilityHelper.compatibilityCheck(new ItemStack(block), BuiltInRegistries.VILLAGER_PROFESSION.getKey(profession));
 							ResourceLocation location = BuiltInRegistries.ITEM.getKey(stack.getItem());

@@ -1,6 +1,5 @@
 package com.mrbysco.justenoughprofessions;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
@@ -45,8 +44,8 @@ public class RenderHelper {
 		entityRenderDispatcher.overrideCameraOrientation(new Quaternionf(0.0F, 0.0F, 0.0F, 1.0F));
 		entityRenderDispatcher.setRenderShadow(false);
 		final MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
-		RenderSystem.runAsFancy(() -> {
-			entityRenderDispatcher.render(villager, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, poseStack, bufferSource, 15728880);
+		guiGraphics.drawSpecial((buffer) -> {
+			entityRenderDispatcher.render(villager, 0.0D, 0.0D, 0.0D, 1.0F, poseStack, buffer, 15728880);
 		});
 		bufferSource.endBatch();
 		entityRenderDispatcher.setRenderShadow(true);

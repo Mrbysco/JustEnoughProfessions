@@ -4,6 +4,7 @@ import com.mrbysco.justenoughprofessions.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -34,7 +35,7 @@ public class VillagerCache {
 			nbt.putString("id", Objects.requireNonNull(Services.PLATFORM.getEntityKey(EntityType.VILLAGER)).toString());
 			ClientLevel level = Minecraft.getInstance().level;
 			if (level != null) {
-				Villager villager = (Villager) EntityType.loadEntityRecursive(nbt, level, Function.identity());
+				Villager villager = (Villager) EntityType.loadEntityRecursive(nbt, level, EntitySpawnReason.LOAD, Function.identity());
 				if (villager != null) {
 					cachedVillager = villager;
 				}

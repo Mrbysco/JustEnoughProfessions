@@ -10,8 +10,8 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -43,7 +43,7 @@ public class ProfessionCategory implements IRecipeCategory<ProfessionWrapper> {
 	}
 
 	@Override
-	public RecipeType<ProfessionWrapper> getRecipeType() {
+	public IRecipeType<ProfessionWrapper> getRecipeType() {
 		return Services.PLATFORM.getProfessionType();
 	}
 
@@ -68,6 +68,7 @@ public class ProfessionCategory implements IRecipeCategory<ProfessionWrapper> {
 	}
 	@Override
 	public void draw(ProfessionWrapper professionWrapper, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+		this.background.draw(guiGraphics, 0, 0);
 		// Draw Drops
 		this.slotDrawable.draw(guiGraphics, 75, 22);
 

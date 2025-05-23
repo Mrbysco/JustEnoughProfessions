@@ -1,7 +1,7 @@
 package com.mrbysco.justenoughprofessions.platform.services;
 
 import com.mrbysco.justenoughprofessions.jei.ProfessionWrapper;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -29,5 +29,5 @@ public interface IPlatformHelper {
 	 *
 	 * @return The profession RecipeType
 	 */
-	RecipeType<ProfessionWrapper> getProfessionType();
+	IRecipeType<ProfessionWrapper> getProfessionType();
 }
