@@ -1,1 +1,1 @@
-* Clear the cached villager used for rendering on world unload
+* Initial update to 1.21.4 (NeoForge only until there's a fabric build of JEI for 1.21.4)
