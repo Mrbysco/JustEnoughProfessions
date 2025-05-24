@@ -17,11 +17,6 @@ public class FabricPlatformHelper implements IPlatformHelper {
 	}
 
 	@Override
-	public ResourceLocation getProfessionKey(VillagerProfession villagerProfession) {
-		return BuiltInRegistries.VILLAGER_PROFESSION.getKey(villagerProfession);
-	}
-
-	@Override
 	public RecipeType<ProfessionWrapper> getProfessionType() {
 		return FabricProfessionPlugin.PROFESSION_TYPE;
 	}

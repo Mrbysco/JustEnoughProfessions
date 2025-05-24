@@ -4,7 +4,6 @@ import com.mrbysco.justenoughprofessions.jei.ProfessionWrapper;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.npc.VillagerProfession;
 
 public interface IPlatformHelper {
 
@@ -17,17 +16,9 @@ public interface IPlatformHelper {
 	ResourceLocation getEntityKey(EntityType<?> entityType);
 
 	/**
-	 * Get the registry name of the profession
-	 *
-	 * @param villagerProfession The villager profession
-	 * @return The registry name
-	 */
-	ResourceLocation getProfessionKey(VillagerProfession villagerProfession);
-
-	/**
 	 * Get the RecipeType for JEI
 	 *
-	 * @return The profession RecipeType
+	 * @return The professionHolder RecipeType
 	 */
 	IRecipeType<ProfessionWrapper> getProfessionType();
 }

@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Optional;
 
 @JeiPlugin
@@ -49,9 +50,10 @@ public class NeoForgeProfessionPlugin implements IModPlugin {
 	@Override
 	public void registerRecipes(IRecipeRegistration registration) {
 		List<ProfessionWrapper> entries = new LinkedList<>();
-		List<VillagerProfession> professions = BuiltInRegistries.VILLAGER_PROFESSION.stream().toList();
-		for (VillagerProfession profession : professions) {
-			if (profession == VillagerProfession.NONE) {
+		for (Entry<ResourceKey<VillagerProfession>, VillagerProfession> entry : BuiltInRegistries.VILLAGER_PROFESSION.entrySet()) {
+			ResourceKey<VillagerProfession> resourceKey = entry.getKey();
+			VillagerProfession profession = entry.getValue();
+			if (entry.getKey().location().equals(VillagerProfession.NONE.location())) {
 				continue;
 			}
 			List<ItemStack> stacks = new LinkedList<>();
@@ -74,7 +76,7 @@ public class NeoForgeProfessionPlugin implements IModPlugin {
 				}
 			}
 			if (!stacks.isEmpty()) {
-				entries.add(new ProfessionWrapper(new ProfessionEntry(profession, stacks)));
+				entries.add(new ProfessionWrapper(new ProfessionEntry(BuiltInRegistries.VILLAGER_PROFESSION.getOrThrow(resourceKey), stacks)));
 			}
 		}
 		registration.addRecipes(PROFESSION_TYPE, entries);

@@ -1,10 +1,10 @@
 package com.mrbysco.justenoughprofessions.jei;
 
 import com.mrbysco.justenoughprofessions.RenderHelper;
-import com.mrbysco.justenoughprofessions.platform.Services;
 import mezz.jei.api.recipe.category.extensions.IRecipeCategoryExtension;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.ItemStack;
@@ -12,23 +12,25 @@ import net.minecraft.world.item.ItemStack;
 import java.util.List;
 
 /**
- * A wrapper class for the profession recipe.
- * @param entry The profession entry for the recipe.
+ * A wrapper class for the professionHolder recipe.
+ *
+ * @param entry The professionHolder entry for the recipe.
  */
 public record ProfessionWrapper(ProfessionEntry entry) implements IRecipeCategoryExtension<ProfessionWrapper> {
 
 	/**
-	 * Get the profession name for the recipe.
-	 * @return the profession name for the recipe.
+	 * Get the professionHolder name for the recipe.
+	 *
+	 * @return the professionHolder name for the recipe.
 	 */
 	public ResourceLocation getProfessionName() {
-		return Services.PLATFORM.getProfessionKey(entry.profession());
+		return entry.professionHolder().unwrapKey().map(ResourceKey::location).orElse(null);
 	}
 
 	/**
-	 * Get the profession name for display.
+	 * Get the professionHolder name for display.
 	 *
-	 * @return the profession name for display.
+	 * @return the professionHolder name for display.
 	 */
 	public Component getDisplayName() {
 		ResourceLocation professionKey = getProfessionName();
@@ -39,6 +41,7 @@ public record ProfessionWrapper(ProfessionEntry entry) implements IRecipeCategor
 
 	/**
 	 * Get the ItemStacks that represent the blocks in the recipe.
+	 *
 	 * @return a list of ItemStacks for the blocks in the recipe.
 	 */
 	public List<ItemStack> getBlockStacks() {
@@ -47,12 +50,13 @@ public record ProfessionWrapper(ProfessionEntry entry) implements IRecipeCategor
 
 	/**
 	 * Get the ItemStacks that represent the items in the recipe.
-	 * @param recipe The recipe to get the items from.
-	 * @param recipeWidth The width of the recipe.
+	 *
+	 * @param recipe       The recipe to get the items from.
+	 * @param recipeWidth  The width of the recipe.
 	 * @param recipeHeight The height of the recipe.
-	 * @param guiGraphics The GuiGraphics instance.
-	 * @param mouseX the X position of the mouse, relative to the recipe.
-	 * @param mouseY the Y position of the mouse, relative to the recipe.
+	 * @param guiGraphics  The GuiGraphics instance.
+	 * @param mouseX       the X position of the mouse, relative to the recipe.
+	 * @param mouseY       the Y position of the mouse, relative to the recipe.
 	 */
 	@Override
 	public void drawInfo(ProfessionWrapper recipe, int recipeWidth, int recipeHeight, GuiGraphics guiGraphics, double mouseX, double mouseY) {

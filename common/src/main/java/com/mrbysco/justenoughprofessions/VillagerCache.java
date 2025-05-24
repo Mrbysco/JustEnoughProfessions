@@ -3,6 +3,7 @@ package com.mrbysco.justenoughprofessions;
 import com.mrbysco.justenoughprofessions.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
@@ -14,7 +15,7 @@ import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * This class is used to cache the villager entity used for rendering the villager profession
+ * This class is used to cache the villager entity used for rendering the villager professionHolder
  */
 public class VillagerCache {
 	/**
@@ -23,13 +24,13 @@ public class VillagerCache {
 	private static Villager cachedVillager;
 
 	/**
-	 * Get a villager entity with a specific profession
+	 * Get a villager entity with a specific professionHolder
 	 * If the entity is not cached, it will create a new one and cache it
-	 * @param profession The profession to set the villager to
+	 * @param professionHolder The professionHolder to set the villager to
 	 * @return The villager entity
 	 */
 	@Nullable
-	public static Villager getVillagerEntity(VillagerProfession profession) {
+	public static Villager getVillagerEntity(Holder<VillagerProfession> professionHolder) {
 		if (cachedVillager == null) {
 			CompoundTag nbt = new CompoundTag();
 			nbt.putString("id", Objects.requireNonNull(Services.PLATFORM.getEntityKey(EntityType.VILLAGER)).toString());
@@ -41,7 +42,7 @@ public class VillagerCache {
 				}
 			}
 		} else {
-			cachedVillager.setVillagerData(cachedVillager.getVillagerData().setProfession(profession));
+			cachedVillager.setVillagerData(cachedVillager.getVillagerData().withProfession(professionHolder));
 			return cachedVillager;
 		}
 

@@ -7,18 +7,12 @@ import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.npc.VillagerProfession;
 
 public class NeoForgePlatformHelper implements IPlatformHelper {
 
 	@Override
 	public ResourceLocation getEntityKey(EntityType<?> entityType) {
 		return BuiltInRegistries.ENTITY_TYPE.getKey(entityType);
-	}
-
-	@Override
-	public ResourceLocation getProfessionKey(VillagerProfession villagerProfession) {
-		return BuiltInRegistries.VILLAGER_PROFESSION.getKey(villagerProfession);
 	}
 
 	@Override

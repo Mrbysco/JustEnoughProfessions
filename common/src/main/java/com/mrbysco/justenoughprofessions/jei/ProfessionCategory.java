@@ -29,7 +29,7 @@ public class ProfessionCategory implements IRecipeCategory<ProfessionWrapper> {
 	private final IDrawableStatic slotDrawable;
 
 	/**
-	 * Create the profession category
+	 * Create the professionHolder category
 	 * @param guiHelper The gui helper instance
 	 */
 	public ProfessionCategory(IGuiHelper guiHelper) {
