@@ -18,6 +18,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ARGB;
+import org.joml.Matrix3x2fStack;
 
 /**
  * The JEI recipe category for the professions
@@ -53,8 +55,13 @@ public class ProfessionCategory implements IRecipeCategory<ProfessionWrapper> {
 	}
 
 	@Override
-	public IDrawable getBackground() {
-		return background;
+	public int getHeight() {
+		return background.getHeight();
+	}
+
+	@Override
+	public int getWidth() {
+		return background.getWidth();
 	}
 
 	@Override
@@ -66,6 +73,7 @@ public class ProfessionCategory implements IRecipeCategory<ProfessionWrapper> {
 	public void setRecipe(IRecipeLayoutBuilder builder, ProfessionWrapper recipe, IFocusGroup focuses) {
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 76, 23).addItemStacks(recipe.getBlockStacks());
 	}
+
 	@Override
 	public void draw(ProfessionWrapper professionWrapper, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
 		this.background.draw(guiGraphics, 0, 0);
@@ -73,17 +81,16 @@ public class ProfessionCategory implements IRecipeCategory<ProfessionWrapper> {
 		this.slotDrawable.draw(guiGraphics, 75, 22);
 
 		// Draw entity
-		professionWrapper.drawInfo(professionWrapper, getBackground().getWidth(), getBackground().getHeight(), guiGraphics, mouseX, mouseY);
+		professionWrapper.drawInfo(professionWrapper, getWidth(), getHeight(), guiGraphics, mouseX, mouseY);
 		// Draw entity name
-		PoseStack poseStack = guiGraphics.pose();
-		poseStack.pushPose();
-		poseStack.translate(1, 0, 0);
+		Matrix3x2fStack poseStack = guiGraphics.pose();
+		poseStack.pushMatrix();
 		Font font = Minecraft.getInstance().font;
 		String text = Screen.hasShiftDown() ? professionWrapper.getProfessionName().toString() : professionWrapper.getDisplayName().getString();
 		if (font.width(text) > 122) {
-			poseStack.scale(0.75F, 0.75F, 0.75F);
+			poseStack.scale(0.75F, 0.75F);
 		}
-		guiGraphics.drawString(font, text, 0, 0, 8, false);
-		poseStack.popPose();
+		guiGraphics.drawString(font, text, 0, 0, ARGB.opaque(8), false);
+		poseStack.popMatrix();
 	}
 }
