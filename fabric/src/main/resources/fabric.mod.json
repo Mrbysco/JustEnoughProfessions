@@ -24,11 +24,11 @@
     ]
   },
   "depends": {
-    "fabricloader": ">=0.16.11",
-    "minecraft": "~1.21.4",
+    "fabricloader": ">=0.16.14",
+    "minecraft": "~1.21.8",
     "java": ">=21",
     "fabric-api": "*",
-    "jei": ">=20.0.0.4"
+    "jei": ">=24.0.0.1"
   }
 }
   
