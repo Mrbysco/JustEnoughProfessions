@@ -8,6 +8,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.ItemStack;
+import org.joml.Matrix3x2fStack;
+import org.joml.Vector2f;
 
 import java.util.List;
 
@@ -60,9 +62,15 @@ public record ProfessionWrapper(ProfessionEntry entry) implements IRecipeCategor
 	 */
 	@Override
 	public void drawInfo(ProfessionWrapper recipe, int recipeWidth, int recipeHeight, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+		final Matrix3x2fStack poseStack = guiGraphics.pose();
+
 		Villager entityVillager = entry.getVillagerEntity();
 		if (entityVillager != null) {
-			RenderHelper.renderVillager(guiGraphics, 22, 62, 25.0F,
+			Vector2f position = new Vector2f(26, 62);
+			position = poseStack.transformPosition(position);
+			int x = Math.round(position.x);
+			int y = Math.round(position.y);
+			RenderHelper.renderVillager(guiGraphics, x, y, 25.0F,
 					38 - mouseX,
 					15 - mouseY,
 					entityVillager);

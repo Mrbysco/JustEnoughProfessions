@@ -1,6 +1,5 @@
 package com.mrbysco.justenoughprofessions.jei;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mrbysco.justenoughprofessions.Constants;
 import com.mrbysco.justenoughprofessions.platform.Services;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -26,22 +25,15 @@ import org.joml.Matrix3x2fStack;
  */
 public class ProfessionCategory implements IRecipeCategory<ProfessionWrapper> {
 
-	private final IDrawableStatic background;
 	private final IDrawableStatic icon;
-	private final IDrawableStatic slotDrawable;
 
 	/**
 	 * Create the professionHolder category
 	 * @param guiHelper The gui helper instance
 	 */
 	public ProfessionCategory(IGuiHelper guiHelper) {
-		ResourceLocation location = Constants.modLoc("textures/gui/professions.png");
-		this.background = guiHelper.drawableBuilder(location, 0, 0, 72, 62).addPadding(1, 0, 0, 50).build();
-
 		ResourceLocation iconLocation = Constants.modLoc("textures/gui/profession_icon.png");
 		this.icon = guiHelper.createDrawable(iconLocation, 0, 0, 16, 16);
-
-		this.slotDrawable = guiHelper.getSlotDrawable();
 	}
 
 	@Override
@@ -56,12 +48,12 @@ public class ProfessionCategory implements IRecipeCategory<ProfessionWrapper> {
 
 	@Override
 	public int getHeight() {
-		return background.getHeight();
+		return 62;
 	}
 
 	@Override
 	public int getWidth() {
-		return background.getWidth();
+		return 72;
 	}
 
 	@Override
@@ -71,15 +63,13 @@ public class ProfessionCategory implements IRecipeCategory<ProfessionWrapper> {
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, ProfessionWrapper recipe, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 76, 23).addItemStacks(recipe.getBlockStacks());
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 56, 23)
+				.addItemStacks(recipe.getBlockStacks())
+				.setStandardSlotBackground();
 	}
 
 	@Override
 	public void draw(ProfessionWrapper professionWrapper, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-		this.background.draw(guiGraphics, 0, 0);
-		// Draw Drops
-		this.slotDrawable.draw(guiGraphics, 75, 22);
-
 		// Draw entity
 		professionWrapper.drawInfo(professionWrapper, getWidth(), getHeight(), guiGraphics, mouseX, mouseY);
 		// Draw entity name

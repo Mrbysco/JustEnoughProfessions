@@ -28,11 +28,10 @@ public class RenderHelper {
 	public static void renderVillager(GuiGraphics guiGraphics, int x, int y, double scale, double yaw, double pitch, Villager villager) {
 		if (villager.level() == null) return;
 
-		int startX = x - 50;
-		int startY = y - 50;
-		int endX = x + 50;
-		int endY = y + 50;
-
+		int startX = x - 60;
+		int startY = y - 60;
+		int endX = x + 60;
+		int endY = y + 60;
 
 		Matrix3x2fStack poseStack = guiGraphics.pose();
 		poseStack.pushMatrix();
