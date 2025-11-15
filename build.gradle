@@ -1,7 +1,7 @@
 plugins {
     // Required for NeoGradle
     id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.7"
-    id "net.darkhax.curseforgegradle" version "1.1.26" apply(false)
+    id "net.darkhax.curseforgegradle" version "1.1.28" apply(false)
     id "com.modrinth.minotaur" version "2.+" apply(false)
 }
 
@@ -48,16 +48,6 @@ subprojects {
             // location of the maven that hosts JEI files since January 2023
             name = "Jared's maven"
             url = "https://maven.blamejared.com/"
-        }
-        maven {
-            name = 'Roughly Enough Items'
-            url = "https://maven.shedaniel.me"
-        }
-        maven {
-            url = "https://maven.theillusivec4.top/"
-            content {
-                includeGroup "top.theillusivec4.curios"
-            }
         }
     }
 
