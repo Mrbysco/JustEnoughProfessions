@@ -1,1 +1,1 @@
-* Initial update to 1.21.8 (NeoForge only until there's a fabric build of JEI for 1.21.8)
+* Initial update to 1.21.10
