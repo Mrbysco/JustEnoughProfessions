@@ -15,7 +15,6 @@ import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ARGB;
@@ -77,8 +76,9 @@ public class ProfessionCategory implements IRecipeCategory<ProfessionWrapper> {
 		// Draw entity name
 		Matrix3x2fStack poseStack = guiGraphics.pose();
 		poseStack.pushMatrix();
-		Font font = Minecraft.getInstance().font;
-		String text = Screen.hasShiftDown() ? professionWrapper.getProfessionName().toString() : professionWrapper.getDisplayName().getString();
+		Minecraft mc = Minecraft.getInstance();
+		Font font = mc.font;
+		String text = mc.hasShiftDown() ? professionWrapper.getProfessionName().toString() : professionWrapper.getDisplayName().getString();
 		if (font.width(text) > 122) {
 			poseStack.scale(0.75F, 0.75F);
 		}

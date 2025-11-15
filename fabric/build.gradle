@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'maven-publish'
-    id 'fabric-loom' version '1.11-SNAPSHOT'
+    id 'fabric-loom' version '1.13-SNAPSHOT'
     id 'net.darkhax.curseforgegradle'
     id 'com.modrinth.minotaur'
 }
@@ -18,7 +18,7 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     implementation project(":common")
 
-    modImplementation("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
+    modImplementation("mezz.jei:jei-${jei_minecraft}-fabric:${jei_version}")
 }
 
 loom {
