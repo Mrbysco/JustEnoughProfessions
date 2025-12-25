@@ -5,13 +5,13 @@ import com.mrbysco.justenoughprofessions.jei.ProfessionWrapper;
 import com.mrbysco.justenoughprofessions.platform.services.IPlatformHelper;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 
 public class FabricPlatformHelper implements IPlatformHelper {
 
 	@Override
-	public ResourceLocation getEntityKey(EntityType<?> entityType) {
+	public Identifier getEntityKey(EntityType<?> entityType) {
 		return BuiltInRegistries.ENTITY_TYPE.getKey(entityType);
 	}
 

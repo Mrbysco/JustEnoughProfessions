@@ -4,9 +4,9 @@ import com.mrbysco.justenoughprofessions.RenderHelper;
 import mezz.jei.api.recipe.category.extensions.IRecipeCategoryExtension;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Matrix3x2fStack;
 import org.joml.Vector2f;
@@ -25,8 +25,8 @@ public record ProfessionWrapper(ProfessionEntry entry) implements IRecipeCategor
 	 *
 	 * @return the professionHolder name for the recipe.
 	 */
-	public ResourceLocation getProfessionName() {
-		return entry.professionHolder().unwrapKey().map(ResourceKey::location).orElse(null);
+	public Identifier getProfessionName() {
+		return entry.professionHolder().unwrapKey().map(ResourceKey::identifier).orElse(null);
 	}
 
 	/**
@@ -35,7 +35,7 @@ public record ProfessionWrapper(ProfessionEntry entry) implements IRecipeCategor
 	 * @return the professionHolder name for display.
 	 */
 	public Component getDisplayName() {
-		ResourceLocation professionKey = getProfessionName();
+		Identifier professionKey = getProfessionName();
 		String languageKey = professionKey.toLanguageKey();
 		if (languageKey.startsWith("minecraft.")) languageKey = languageKey.replace("minecraft.", "");
 		return Component.translatable("entity.minecraft.villager." + languageKey);
@@ -71,8 +71,8 @@ public record ProfessionWrapper(ProfessionEntry entry) implements IRecipeCategor
 			int x = Math.round(position.x);
 			int y = Math.round(position.y);
 			RenderHelper.renderVillager(guiGraphics, x, y, 25.0F,
-					38 - mouseX,
-					15 - mouseY,
+					mouseX + 12,
+					mouseY - 12,
 					entityVillager);
 		}
 	}

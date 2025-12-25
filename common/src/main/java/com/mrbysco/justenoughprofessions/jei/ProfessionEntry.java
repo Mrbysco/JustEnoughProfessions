@@ -2,8 +2,8 @@ package com.mrbysco.justenoughprofessions.jei;
 
 import com.mrbysco.justenoughprofessions.VillagerCache;
 import net.minecraft.core.Holder;
-import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.villager.Villager;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 

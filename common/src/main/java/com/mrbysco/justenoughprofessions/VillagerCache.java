@@ -7,12 +7,11 @@ import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.villager.Villager;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
-import java.util.function.Function;
 
 /**
  * This class is used to cache the villager entity used for rendering the villager professionHolder
@@ -26,6 +25,7 @@ public class VillagerCache {
 	/**
 	 * Get a villager entity with a specific professionHolder
 	 * If the entity is not cached, it will create a new one and cache it
+	 *
 	 * @param professionHolder The professionHolder to set the villager to
 	 * @return The villager entity
 	 */
@@ -36,7 +36,7 @@ public class VillagerCache {
 			nbt.putString("id", Objects.requireNonNull(Services.PLATFORM.getEntityKey(EntityType.VILLAGER)).toString());
 			ClientLevel level = Minecraft.getInstance().level;
 			if (level != null) {
-				Villager villager = (Villager) EntityType.loadEntityRecursive(nbt, level, EntitySpawnReason.LOAD, Function.identity());
+				Villager villager = (Villager) EntityType.loadEntityRecursive(nbt, level, EntitySpawnReason.LOAD, entity -> entity);
 				if (villager != null) {
 					cachedVillager = villager;
 				}

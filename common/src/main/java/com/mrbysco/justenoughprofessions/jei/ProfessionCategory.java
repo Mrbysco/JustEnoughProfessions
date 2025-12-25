@@ -11,14 +11,14 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
-import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Util;
 import org.joml.Matrix3x2fStack;
 
 /**
@@ -33,7 +33,7 @@ public class ProfessionCategory implements IRecipeCategory<ProfessionWrapper> {
 	 * @param guiHelper The gui helper instance
 	 */
 	public ProfessionCategory(IGuiHelper guiHelper) {
-		ResourceLocation iconLocation = Constants.modLoc("textures/gui/profession_icon.png");
+		Identifier iconLocation = Constants.modLoc("textures/gui/profession_icon.png");
 		this.icon = guiHelper.createDrawable(iconLocation, 0, 0, 16, 16);
 	}
 

@@ -3,7 +3,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id "net.neoforged.moddev" version "2.0.116"
+    id "net.neoforged.moddev" version "2.0.134"
     id 'net.darkhax.curseforgegradle'
     id 'com.modrinth.minotaur'
 }
@@ -12,13 +12,6 @@ base {
     archivesName = "${mod_name}-neoforge-${minecraft_version}"
 }
 
-if (file('src/main/resources/META-INF/accesstransformer.cfg').exists()) {
-    minecraft.accessTransformers.file file('src/main/resources/META-INF/accesstransformer.cfg')
-}
-
-configurations {
-    testmodImplementation.extendsFrom implementation
-}
 neoForge {
     version = "${neo_version}"
 
@@ -30,9 +23,8 @@ neoForge {
     // Automatically enable neoforge AccessTransformers if the file exists
     def at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
     if (at.exists()) {
-        accessTransformers.add(at.absolutePath)
+        accessTransformers.from(at.absolutePath)
     }
-    addModdingDependenciesTo(sourceSets["test"])
 
     runs {
         configureEach { model ->

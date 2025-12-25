@@ -2,7 +2,7 @@ package com.mrbysco.justenoughprofessions.platform.services;
 
 import com.mrbysco.justenoughprofessions.jei.ProfessionWrapper;
 import mezz.jei.api.recipe.types.IRecipeType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 
 public interface IPlatformHelper {
@@ -13,7 +13,7 @@ public interface IPlatformHelper {
 	 * @param entityType The entity type
 	 * @return The registry name
 	 */
-	ResourceLocation getEntityKey(EntityType<?> entityType);
+	Identifier getEntityKey(EntityType<?> entityType);
 
 	/**
 	 * Get the RecipeType for JEI

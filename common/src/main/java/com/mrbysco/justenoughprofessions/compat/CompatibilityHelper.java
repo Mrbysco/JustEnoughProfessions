@@ -1,6 +1,6 @@
 package com.mrbysco.justenoughprofessions.compat;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
@@ -14,9 +14,9 @@ public class CompatibilityHelper {
 	 * @param profession The professionHolder to check
 	 * @return The ItemStack after compatibility checks
 	 */
-	public static ItemStack compatibilityCheck(ItemStack stack, @Nullable ResourceLocation profession) {
+	public static ItemStack compatibilityCheck(ItemStack stack, @Nullable Identifier profession) {
 //		if (professionHolder != null) { TODO: Re-implement if IE is back
-//			if (professionHolder.equals(new ResourceLocation("immersiveengineering", "outfitter"))) {
+//			if (professionHolder.equals(new Identifier("immersiveengineering", "outfitter"))) {
 //				CompoundTag tag = stack.hasTag() ? stack.getTag() : new CompoundTag();
 //				tag.putBoolean("JEP_outfitter", true);
 //				stack.setTag(tag);
