@@ -55,6 +55,10 @@ subprojects {
         it.options.encoding = 'UTF-8'
         it.options.getRelease().set(21)
     }
+    
+    tasks.withType(AbstractTestTask).configureEach {
+        failOnNoDiscoveredTests = false
+    }
 
     processResources {
         filesMatching(['pack.mcmeta', 'fabric.mod.json', 'neoforge.mods.toml', '*.mixins.json']) {
