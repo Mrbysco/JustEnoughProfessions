@@ -2,7 +2,7 @@ package com.mrbysco.justenoughprofessions.jei;
 
 import com.mrbysco.justenoughprofessions.RenderHelper;
 import mezz.jei.api.recipe.category.extensions.IRecipeCategoryExtension;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -61,7 +61,7 @@ public record ProfessionWrapper(ProfessionEntry entry) implements IRecipeCategor
 	 * @param mouseY       the Y position of the mouse, relative to the recipe.
 	 */
 	@Override
-	public void drawInfo(ProfessionWrapper recipe, int recipeWidth, int recipeHeight, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+	public void drawInfo(ProfessionWrapper recipe, int recipeWidth, int recipeHeight, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
 		final Matrix3x2fStack poseStack = guiGraphics.pose();
 
 		Villager entityVillager = entry.getVillagerEntity();
