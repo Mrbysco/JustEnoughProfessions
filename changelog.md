@@ -1,1 +1,2 @@
-* Initial update to 26.1.1
+* Add Argentine Spanish translation (Courtesy of [Texaliuz](https://github.com/Mrbysco/JustEnoughProfessions/issues/21))
+* Add Japanese translation (Courtesy of [Abbage230](https://github.com/Mrbysco/JustEnoughProfessions/issues/24))
