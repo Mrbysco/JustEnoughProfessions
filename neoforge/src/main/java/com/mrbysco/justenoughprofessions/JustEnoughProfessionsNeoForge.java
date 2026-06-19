@@ -24,7 +24,7 @@ public class JustEnoughProfessionsNeoForge {
 	}
 
 	private void handleTooltips(ItemTooltipEvent event) {
-		if (Minecraft.getInstance().screen instanceof IRecipesGui) {
+		if (Minecraft.getInstance().gui.screen() instanceof IRecipesGui) {
 			ItemStack stack = event.getItemStack();
 //			if (stack.hasTag() && stack.getTag().getBoolean("JEP_outfitter")) { TODO: Re-implement in the future
 //				event.getToolTip().add(Component.literal("Needs to have a shader applied").withStyle(ChatFormatting.GOLD));

@@ -7,6 +7,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import org.jetbrains.annotations.Nullable;
@@ -33,11 +34,12 @@ public class VillagerCache {
 	public static Villager getVillagerEntity(Holder<VillagerProfession> professionHolder) {
 		if (cachedVillager == null) {
 			CompoundTag nbt = new CompoundTag();
-			nbt.putString("id", Objects.requireNonNull(Services.PLATFORM.getEntityKey(EntityType.VILLAGER)).toString());
+			nbt.putString("id", Objects.requireNonNull(Services.PLATFORM.getEntityKey(EntityTypes.VILLAGER)).toString());
 			ClientLevel level = Minecraft.getInstance().level;
 			if (level != null) {
-				Villager villager = (Villager) EntityType.loadEntityRecursive(nbt, level, EntitySpawnReason.LOAD, entity -> entity);
+				Villager villager = (Villager) EntityType.loadEntityRecursive(EntityTypes.VILLAGER, nbt, level, EntitySpawnReason.LOAD, entity -> entity);
 				if (villager != null) {
+					villager.setId(-1); // Stop entity ID access before assignment crash
 					cachedVillager = villager;
 				}
 			}

@@ -16,13 +16,13 @@ Adds info about professions to JEI
 [[dependencies.justenoughprofessions]]
 modId="jei"
 type="REQUIRED"
-versionRange="[29.2.0.17,)"
+versionRange="[30.0.0.1,)"
 ordering="NONE"
 side="BOTH"
 [[dependencies.justenoughprofessions]]
 modId="neoforge"
 type="REQUIRED"
-versionRange="[26.1.0.0-alpha,)"
+versionRange="[26.2.0.0-beta,)"
 ordering="NONE"
 side="BOTH"
 [[dependencies.justenoughprofessions]]
